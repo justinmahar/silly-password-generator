@@ -1,8 +1,8 @@
 {
-  "name": "react-kindling",
-  "version": "2.4.11",
+  "name": "silly-password-generator",
+  "version": "0.0.0",
   "author": "Justin Mahar <contact@justinmahar.com>",
-  "description": "A template to build, test, and share React components and hooks easily.",
+  "description": "🔑 An opinionated but fun password generator. Generate silly passwords that are easy to remember.",
   "homepage": "https://justinmahar.github.io/react-kindling/",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -25,7 +25,34 @@
   "bugs": {
     "url": "https://github.com/justinmahar/react-kindling/issues"
   },
-  "keywords": [],
+  "keywords": [
+    "password",
+    "generator",
+    "silly",
+    "generate",
+    "maker",
+    "creator",
+    "security",
+    "fun",
+    "pass",
+    "keypass",
+    "passcode",
+    "passphrase",
+    "phrase",
+    "manager",
+    "dashlane",
+    "1password",
+    "1pass",
+    "keypass",
+    "keeper",
+    "avast",
+    "onelogin",
+    "zoho",
+    "bitwarden",
+    "logmeonce",
+    "nordpass",
+    "roboform"
+  ],
   "peerDependencies": {
     "react": "^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
     "react-dom": "^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0"
