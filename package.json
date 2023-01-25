@@ -16,7 +16,8 @@
     "preship": "npm run build && git add dist && git diff-index --quiet HEAD || git commit -m \"Build, version, and publish.\" && npm version patch -m \"Build, version, and publish.\"",
     "ship": "npm publish --access public",
     "postship": "git push",
-    "update": "rm -rf .lockblocks && git clone -q git@github.com:justinmahar/react-kindling.git ./.lockblocks && lockblocks ./.lockblocks . --verbose && rm -rf .lockblocks && echo '' && echo ' → Be sure to run `npm i` to install new dependencies.' && echo ''"
+    "update": "rm -rf .lockblocks && git clone -q git@github.com:justinmahar/react-kindling.git ./.lockblocks && lockblocks ./.lockblocks . --verbose && rm -rf .lockblocks && echo '' && echo ' → Be sure to run `npm i` to install new dependencies.' && echo ''",
+    "postupdate": "node remove-peer-deps.js"
   },
   "license": "MIT",
   "repository": {
@@ -54,10 +55,6 @@
     "nordpass",
     "roboform"
   ],
-  "peerDependencies": {
-    "react": "^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0",
-    "react-dom": "^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0"
-  },
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@mdx-js/react": "^1.6.22",
