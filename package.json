@@ -1,6 +1,7 @@
 {
   "name": "silly-password-generator",
   "version": "0.0.0",
+  "coreVersion": "2.4.11",
   "author": "Justin Mahar <contact@justinmahar.com>",
   "description": "🔑 An opinionated but fun password generator. Generate silly passwords that are easy to remember.",
   "homepage": "https://justinmahar.github.io/react-kindling/",
@@ -84,6 +85,5 @@
     "replace-in-file": "^6.3.5",
     "typescript": "^4.9.4",
     "webpack": "^5.75.0"
-  },
-  "coreVersion": "2.4.11"
+  }
 }
