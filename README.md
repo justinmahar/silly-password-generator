@@ -33,13 +33,13 @@ I hope this project makes your life a little easier! If it does and you'd like t
 Your support helps keep the project going and will earn you some serious virtual high fives. Maybe even a virtual fist bump if you're feeling extra cool.
 
 <a href="https://github.com/sponsors/justinmahar">
-  <img src="https://justinmahar.github.io/silly-password-generator/support/sponsor.png" alt="Sponsor via GitHub" height="35" />
+  <img src="https://justinmahar.github.io/react-kindling/support/sponsor.png" alt="Sponsor via GitHub" height="35" />
 </a> <a href="https://paypal.me/thejustinmahar/5">
-  <img src="https://justinmahar.github.io/silly-password-generator/support/coffee-1.png" alt="Buy me a coffee" height="35" />
+  <img src="https://justinmahar.github.io/react-kindling/support/coffee-1.png" alt="Buy me a coffee" height="35" />
 </a> <a href="https://paypal.me/thejustinmahar/15">
-  <img src="https://justinmahar.github.io/silly-password-generator/support/coffee-3.png" alt="Buy me 3 coffees" height="35" />
+  <img src="https://justinmahar.github.io/react-kindling/support/coffee-3.png" alt="Buy me 3 coffees" height="35" />
 </a> <a href="https://paypal.me/thejustinmahar/25">
-  <img src="https://justinmahar.github.io/silly-password-generator/support/coffee-5.png" alt="Buy me 5 coffees" height="35" />
+  <img src="https://justinmahar.github.io/react-kindling/support/coffee-5.png" alt="Buy me 5 coffees" height="35" />
 </a>
 
 [/lock:donate]::---------------------------------------🚫
