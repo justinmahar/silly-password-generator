@@ -15,14 +15,28 @@
 
 Read the **[official documentation](https://justinmahar.github.io/silly-password-generator/)**.
 
+### [→Generate Silly Passwords Here ←](https://justinmahar.github.io/silly-password-generator/?path=/story/stories-sillypasswordgenerator--generator)
+
 ## Overview
 
-This section will contain an overview so people can have a high-level understanding of the project.
+Generate fun and silly passwords that are easy to remember.
+
+Would you rather use the password [`Tr0ub5dor&3`](https://xkcd.com/936/) or `exciting creepy macho tiger`? 
+
+The first would take 10 seconds to crack, the second would take centuries. 
+
+'Nuff said. Exciting creepy macho tigers for the win.
 
 ### Features include:
 
-- **🚀 List your features, use fun [emojis](https://emojipedia.org/search/?q=rocket)**
-  - Give a little more info on each feature or mention benefits.
+- **💩 Fun passwords are better than boring ones**
+  - Why use lame and hard to remember passwords, when you can use fun ones... that are also secure?
+- **👨‍🔬 Password analysis**
+  - Leverage the brainpower of at least a dozens nerds. This library makes sure your password is secure using [zxcvbn](https://www.npmjs.com/package/zxcvbn).
+- **🔐 Secure**
+  - Have I mentioned that they're secure? Well, they are!
+- **🔢 Customizable**
+  - Choose from a set of options to customize your password.
 
 [lock:donate]::🚫---------------------------------------
 
@@ -47,12 +61,16 @@ Your support helps keep the project going and will earn you some serious virtual
 ## Table of Contents 
 
 - [Documentation](#documentation)
+  - [→Generate Silly Passwords Here ←](#generate-silly-passwords-here-)
 - [Overview](#overview)
   - [Features include:](#features-include)
 - [Donate](#donate)
 - [Table of Contents](#table-of-contents)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
+  - [Via Website](#via-website)
+  - [Via npm](#via-npm)
+  - [Analyzing Password Strength](#analyzing-password-strength)
 - [TypeScript](#typescript)
 - [Icon Attribution](#icon-attribution)
 - [Contributing](#contributing)
@@ -67,15 +85,39 @@ npm i silly-password-generator
 
 ## Quick Start
 
-This section will contain a copy/paste example so people can get started quickly.
+### Via Website
 
-```jsx
-import { Example } from 'silly-password-generator';
+Go here: [Silly Password Generator](https://justinmahar.github.io/silly-password-generator/?path=/story/stories-sillypasswordgenerator--generator)
+
+### Via npm
+
+```js
+import { generateSillyPassword } from 'silly-password-generator';
 ```
 
-```jsx
-<Example label="Example Component" />
+```js
+// Use with no options to generate a 4-word silly password
+generateSillyPassword(); // `thorough loud annoying penguin`
+// Provide a custom word count if you'd like
+generateSillyPassword({ wordCount: 7 }); // `glamorous large powerful fast black noisy clam`
 ```
+
+> Captain obvious here. The `wordCount` must be at least `1`.
+
+### Analyzing Password Strength
+
+This library uses [zxcvbn](https://www.npmjs.com/package/zxcvbn) to analyze password strength. This was written by a bunch of nerds, so you know it's legit.
+
+```js
+import { analyzePassword } from 'silly-password-generator';
+```
+
+```js
+// Returns an object telling you how awesome or crappy your password is.
+analyzePassword(sillyPassword); 
+```
+
+See the [zxcvbn Usage section](https://www.npmjs.com/package/zxcvbn#usage) for the properties available.
 
 [lock:typescript]::🚫---------------------------------------
 

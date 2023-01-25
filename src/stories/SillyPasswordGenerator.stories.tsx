@@ -7,21 +7,14 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { Example } from '../components/Example';
+import { SillyPasswordGenerator } from '../components/SillyPasswordGenerator';
 
 export default {
-  title: 'Stories/Example',
-  component: Example,
-} as ComponentMeta<typeof Example>;
+  title: 'Stories/SillyPasswordGenerator',
+  component: SillyPasswordGenerator,
+} as ComponentMeta<typeof SillyPasswordGenerator>;
 
-const Template: ComponentStory<typeof Example> = (args) => <Example {...args} />;
+const Template: ComponentStory<typeof SillyPasswordGenerator> = (args) => <SillyPasswordGenerator {...args} />;
 
-export const Hello = Template.bind({});
-Hello.args = {
-  label: 'Hello',
-};
-
-export const World = Template.bind({});
-World.args = {
-  label: 'World',
-};
+export const Generator = Template.bind({});
+Generator.args = {};
