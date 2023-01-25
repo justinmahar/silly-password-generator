@@ -1,6 +1,6 @@
 {
   "name": "silly-password-generator",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "coreVersion": "2.4.11",
   "author": "Justin Mahar <contact@justinmahar.com>",
   "description": "🔑 An opinionated but fun password generator. Generate silly passwords that are easy to remember.",
