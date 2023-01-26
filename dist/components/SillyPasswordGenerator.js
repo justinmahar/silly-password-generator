@@ -64,7 +64,7 @@ const SillyPasswordGenerator = (_a) => {
     if (effectiveScore > 3 && isShortPassword) {
         effectiveScore = 3;
     }
-    let scoreSentiments = 'really shitty';
+    let scoreSentiments = 'painfully bad';
     switch (effectiveScore) {
         case 1:
             scoreSentiments = 'terrible';
@@ -79,7 +79,7 @@ const SillyPasswordGenerator = (_a) => {
             scoreSentiments = 'rock solid';
             break;
         default:
-            scoreSentiments = 'really shitty';
+            scoreSentiments = 'painfully bad';
     }
     let strengthVariant = 'danger';
     if (effectiveScore >= 2) {
@@ -87,6 +87,49 @@ const SillyPasswordGenerator = (_a) => {
     }
     if (effectiveScore >= 4) {
         strengthVariant = 'success';
+    }
+    let robotQuote = (react_1.default.createElement(react_1.default.Fragment, null,
+        "\uD83E\uDD16 \u201CAwful. It would take",
+        ' ',
+        react_1.default.createElement("span", { className: "fw-bold" }, passwordAnalysis.crack_times_display.offline_fast_hashing_1e10_per_second),
+        " to crack this ",
+        react_1.default.createElement("span", { className: "fw-bold" }, scoreSentiments),
+        " password on an ultra fast computer.\u201D"));
+    if (effectiveScore >= 4) {
+        robotQuote = (react_1.default.createElement(react_1.default.Fragment, null,
+            "\uD83E\uDD16 \u201CLooks great! It would take",
+            ' ',
+            react_1.default.createElement("span", { className: "fw-bold" }, passwordAnalysis.crack_times_display.offline_fast_hashing_1e10_per_second),
+            " to crack this ",
+            react_1.default.createElement("span", { className: "fw-bold" }, scoreSentiments),
+            " password on an ultra fast computer.\u201D"));
+    }
+    else if (effectiveScore >= 3) {
+        robotQuote = (react_1.default.createElement(react_1.default.Fragment, null,
+            "\uD83E\uDD16 \u201CNot the worst I've seen, but it would take",
+            ' ',
+            react_1.default.createElement("span", { className: "fw-bold" }, passwordAnalysis.crack_times_display.offline_fast_hashing_1e10_per_second),
+            " to crack this ",
+            react_1.default.createElement("span", { className: "fw-bold" }, scoreSentiments),
+            " password on an ultra fast computer.\u201D"));
+    }
+    else if (effectiveScore >= 2) {
+        robotQuote = (react_1.default.createElement(react_1.default.Fragment, null,
+            "\uD83E\uDD16 \u201CIt's not great. It would take",
+            ' ',
+            react_1.default.createElement("span", { className: "fw-bold" }, passwordAnalysis.crack_times_display.offline_fast_hashing_1e10_per_second),
+            " to crack this ",
+            react_1.default.createElement("span", { className: "fw-bold" }, scoreSentiments),
+            " password on an ultra fast computer.\u201D"));
+    }
+    else if (effectiveScore >= 1) {
+        robotQuote = (react_1.default.createElement(react_1.default.Fragment, null,
+            "\uD83E\uDD16 \u201CDang, that's a bad one. It would take",
+            ' ',
+            react_1.default.createElement("span", { className: "fw-bold" }, passwordAnalysis.crack_times_display.offline_fast_hashing_1e10_per_second),
+            " to crack this ",
+            react_1.default.createElement("span", { className: "fw-bold" }, scoreSentiments),
+            " password on an ultra fast computer.\u201D"));
     }
     return (react_1.default.createElement("div", Object.assign({}, props, { style: Object.assign({}, props.style) }),
         react_1.default.createElement("style", null, "@import url('https://fonts.googleapis.com/css2?family=Rye&family=Sigmar+One&display=swap');"),
@@ -121,14 +164,14 @@ const SillyPasswordGenerator = (_a) => {
                                                 react_1.default.createElement(react_bootstrap_1.Form.Group, { controlId: "form-group-word-count" },
                                                     react_1.default.createElement(react_bootstrap_1.Form.Label, { className: "fw-bold" }, "Number of Words"),
                                                     react_1.default.createElement("div", { className: "d-flex align-items-center gap-2" },
-                                                        react_1.default.createElement(react_bootstrap_1.Form.Control, { min: 4, max: 10, step: 1, type: "number", style: { width: 80 }, value: wordCount !== null && wordCount !== void 0 ? wordCount : passwords_1.DEFAULT_PASSWORD_OPTIONS.wordCount, onChange: (e) => {
+                                                        react_1.default.createElement(react_bootstrap_1.Form.Control, { min: 2, max: 10, step: 1, type: "number", style: { width: 80 }, value: wordCount !== null && wordCount !== void 0 ? wordCount : passwords_1.DEFAULT_PASSWORD_OPTIONS.wordCount, onChange: (e) => {
                                                                 const newVal = parseInt(e.target.value);
                                                                 if (!isNaN(newVal)) {
                                                                     setWordCount(Math.max(1, Math.min(exports.MAX_WORD_COUNT, newVal)));
                                                                     setShouldGenerate(true);
                                                                 }
                                                             } }),
-                                                        react_1.default.createElement(react_bootstrap_1.Form.Range, { min: 4, max: 10, step: 1, value: wordCount !== null && wordCount !== void 0 ? wordCount : passwords_1.DEFAULT_PASSWORD_OPTIONS.wordCount, onChange: (e) => {
+                                                        react_1.default.createElement(react_bootstrap_1.Form.Range, { min: 2, max: 10, step: 1, value: wordCount !== null && wordCount !== void 0 ? wordCount : passwords_1.DEFAULT_PASSWORD_OPTIONS.wordCount, onChange: (e) => {
                                                                 const newVal = parseInt(e.target.value);
                                                                 if (!isNaN(newVal)) {
                                                                     setWordCount(Math.max(1, Math.min(exports.MAX_WORD_COUNT, newVal)));
@@ -155,17 +198,11 @@ const SillyPasswordGenerator = (_a) => {
                                                     "/4"),
                                                 "Password Strength")),
                                         react_1.default.createElement("h6", null, "What does our password cracking robot have to say?"),
-                                        react_1.default.createElement("p", { className: "mb-0" },
-                                            "\uD83E\uDD16 \u201CI'm kind of obsessed with cracking passwords, and it would take",
-                                            ' ',
-                                            react_1.default.createElement("span", { className: "fw-bold" }, passwordAnalysis.crack_times_display.offline_fast_hashing_1e10_per_second),
-                                            ' ',
-                                            "to crack this ",
-                                            react_1.default.createElement("span", { className: "fw-bold" }, scoreSentiments),
-                                            " password on an ultra fast computer!\u201D \u2014Robot powered by questionable morals (and",
-                                            ' ',
+                                        react_1.default.createElement("p", null, robotQuote),
+                                        react_1.default.createElement(react_bootstrap_1.Form.Text, { className: "text-muted" },
+                                            "Password analysis powered by ",
                                             react_1.default.createElement("a", { href: "https://www.npmjs.com/package/zxcvbn" }, "zxcvbn"),
-                                            ")")),
+                                            ".")),
                                     react_1.default.createElement(react_bootstrap_1.Alert, { variant: "dark" }, "Note from the developer: This password generator is hot off the press! Even better passwords are coming soon. \uD83C\uDF7B"),
                                     react_1.default.createElement("div", { className: "text-center mb-2" },
                                         react_1.default.createElement("a", { className: "text-decoration-none", href: "https://github.com/justinmahar/silly-password-generator" }, "View on GitHub")))))))))));
