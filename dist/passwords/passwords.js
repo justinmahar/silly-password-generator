@@ -14,13 +14,14 @@ exports.DEFAULT_PASSWORD_OPTIONS = {
 };
 const generateSillyPassword = (options) => {
     const opts = Object.assign(Object.assign({}, exports.DEFAULT_PASSWORD_OPTIONS), options);
-    let adjectives = '';
-    for (let i = 0; i < Math.max(1, opts.wordCount) - 1; i++) {
-        adjectives += words_1.attributes[Math.floor(Math.random() * words_1.allCreatures.length)] + ' ';
+    const parts = [];
+    const wordCount = Math.max(1, opts.wordCount);
+    const sources = [words_1.attributes, words_1.allCreatures];
+    for (let i = 0; i < wordCount; i++) {
+        const source = i === wordCount - 1 ? words_1.allCreatures : i === 0 ? words_1.attributes : sources[Math.floor(Math.random() * sources.length)];
+        parts.push(source[Math.floor(Math.random() * words_1.allCreatures.length)]);
     }
-    const noun = words_1.allCreatures[Math.floor(Math.random() * words_1.allCreatures.length)];
-    let pass = adjectives + noun;
-    pass = pass.toLowerCase();
+    let pass = parts.join(' ').toLowerCase();
     if (opts.capitalize) {
         pass = (0, lodash_1.capitalize)(pass);
     }

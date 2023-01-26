@@ -23,6 +23,7 @@ const react_bootstrap_1 = require("react-bootstrap");
 const fa_1 = require("react-icons/fa");
 const react_use_precision_timer_1 = require("react-use-precision-timer");
 const passwords_1 = require("../passwords/passwords");
+const words_1 = require("../passwords/words");
 const RoboQuote_1 = require("./RoboQuote");
 const settings_1 = require("./settings");
 const SillyPasswordGenerator = (_a) => {
@@ -55,7 +56,7 @@ const SillyPasswordGenerator = (_a) => {
             generate();
         }
     }, [generate, shouldGenerate]);
-    const passwordAnalysis = (0, passwords_1.analyzePassword)(sillyPassword);
+    const passwordAnalysis = (0, passwords_1.analyzePassword)(sillyPassword, [...words_1.allCreatures, ...words_1.attributes]);
     let effectiveScore = passwordAnalysis.score;
     // Force a lower score at less than 18 characters
     const isShortPassword = sillyPassword.length < 18;
@@ -143,7 +144,7 @@ const SillyPasswordGenerator = (_a) => {
                                                 "Password Strength")),
                                         react_1.default.createElement("h6", null, "What does our password cracking robot have to say?"),
                                         react_1.default.createElement("p", null,
-                                            react_1.default.createElement(RoboQuote_1.RoboQuote, { effectiveScore: effectiveScore, analysis: passwordAnalysis })),
+                                            react_1.default.createElement(RoboQuote_1.RoboQuote, { effectiveScore: effectiveScore, analysis: passwordAnalysis, salt: salt !== null && salt !== void 0 ? salt : '' })),
                                         react_1.default.createElement(react_bootstrap_1.Form.Text, { className: "text-muted" },
                                             "Password analysis powered by ",
                                             react_1.default.createElement("a", { href: "https://www.npmjs.com/package/zxcvbn" }, "zxcvbn"),
