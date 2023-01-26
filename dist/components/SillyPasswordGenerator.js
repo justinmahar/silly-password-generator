@@ -115,14 +115,14 @@ const SillyPasswordGenerator = (_a) => {
                                                 react_1.default.createElement(react_bootstrap_1.Form.Group, { controlId: "form-group-word-count" },
                                                     react_1.default.createElement(react_bootstrap_1.Form.Label, { className: "fw-bold" }, "Number of Words"),
                                                     react_1.default.createElement("div", { className: "d-flex align-items-center gap-2" },
-                                                        react_1.default.createElement(react_bootstrap_1.Form.Control, { min: 4, max: 10, step: 1, type: "number", style: { width: 80 }, value: wordCount !== null && wordCount !== void 0 ? wordCount : 4, onChange: (e) => {
+                                                        react_1.default.createElement(react_bootstrap_1.Form.Control, { min: 4, max: 10, step: 1, type: "number", style: { width: 80 }, value: wordCount !== null && wordCount !== void 0 ? wordCount : passwords_1.DEFAULT_PASSWORD_OPTIONS.wordCount, onChange: (e) => {
                                                                 const newVal = parseInt(e.target.value);
                                                                 if (!isNaN(newVal)) {
                                                                     setWordCount(newVal);
                                                                     setShouldGenerate(true);
                                                                 }
                                                             } }),
-                                                        react_1.default.createElement(react_bootstrap_1.Form.Range, { min: 4, max: 10, step: 1, value: wordCount !== null && wordCount !== void 0 ? wordCount : 4, onChange: (e) => {
+                                                        react_1.default.createElement(react_bootstrap_1.Form.Range, { min: 4, max: 10, step: 1, value: wordCount !== null && wordCount !== void 0 ? wordCount : passwords_1.DEFAULT_PASSWORD_OPTIONS.wordCount, onChange: (e) => {
                                                                 const newVal = parseInt(e.target.value);
                                                                 if (!isNaN(newVal)) {
                                                                     setWordCount(newVal);
@@ -136,7 +136,7 @@ const SillyPasswordGenerator = (_a) => {
                                                         } })),
                                                 react_1.default.createElement(react_bootstrap_1.Form.Group, { controlId: "form-group-word-count" },
                                                     react_1.default.createElement(react_bootstrap_1.Form.Label, { className: "fw-bold" }, "Ending Punctuation"),
-                                                    react_1.default.createElement(react_bootstrap_1.Form.Control, { type: "text", placeholder: "Enter some punctuation", value: endingPunctuation !== null && endingPunctuation !== void 0 ? endingPunctuation : '', onChange: (e) => {
+                                                    react_1.default.createElement(react_bootstrap_1.Form.Control, { type: "text", placeholder: "Enter some punctuation", value: endingPunctuation !== null && endingPunctuation !== void 0 ? endingPunctuation : passwords_1.DEFAULT_PASSWORD_OPTIONS.suffixCharacters.join(''), onChange: (e) => {
                                                             setEndingPunctuation(e.target.value);
                                                             setShouldGenerate(true);
                                                         } }),
