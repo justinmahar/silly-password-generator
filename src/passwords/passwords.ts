@@ -16,13 +16,15 @@ export const DEFAULT_PASSWORD_OPTIONS = {
 
 export const generateSillyPassword = (options?: SillyPasswordOptions): string => {
   const opts = { ...DEFAULT_PASSWORD_OPTIONS, ...options };
-  let adjectives = '';
-  for (let i = 0; i < Math.max(1, opts.wordCount) - 1; i++) {
-    adjectives += attributes[Math.floor(Math.random() * allCreatures.length)] + ' ';
+  const parts: string[] = [];
+  const wordCount = Math.max(1, opts.wordCount);
+  const sources = [attributes, allCreatures];
+  for (let i = 0; i < wordCount; i++) {
+    const source =
+      i === wordCount - 1 ? allCreatures : i === 0 ? attributes : sources[Math.floor(Math.random() * sources.length)];
+    parts.push(source[Math.floor(Math.random() * allCreatures.length)]);
   }
-  const noun = allCreatures[Math.floor(Math.random() * allCreatures.length)];
-  let pass = adjectives + noun;
-  pass = pass.toLowerCase();
+  let pass = parts.join(' ').toLowerCase();
   if (opts.capitalize) {
     pass = capitalize(pass);
   }

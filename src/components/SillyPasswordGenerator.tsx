@@ -7,6 +7,7 @@ import { DivProps } from 'react-html-props';
 import { FaGithub, FaStar } from 'react-icons/fa';
 import { useMomentaryBool } from 'react-use-precision-timer';
 import { analyzePassword, DEFAULT_PASSWORD_OPTIONS, generateSillyPassword } from '../passwords/passwords';
+import { allCreatures, attributes } from '../passwords/words';
 import { RoboQuote } from './RoboQuote';
 import { MAX_WORD_COUNT, useSettings } from './settings';
 
@@ -48,7 +49,7 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
     }
   }, [generate, shouldGenerate]);
 
-  const passwordAnalysis = analyzePassword(sillyPassword);
+  const passwordAnalysis = analyzePassword(sillyPassword, [...allCreatures, ...attributes]);
 
   let effectiveScore = passwordAnalysis.score;
   // Force a lower score at less than 18 characters
@@ -210,7 +211,7 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                       </h5>
                       <h6>What does our password cracking robot have to say?</h6>
                       <p>
-                        <RoboQuote effectiveScore={effectiveScore} analysis={passwordAnalysis} />
+                        <RoboQuote effectiveScore={effectiveScore} analysis={passwordAnalysis} salt={salt ?? ''} />
                       </p>
                       <Form.Text className="text-muted">
                         Password analysis powered by <a href="https://www.npmjs.com/package/zxcvbn">zxcvbn</a>.
