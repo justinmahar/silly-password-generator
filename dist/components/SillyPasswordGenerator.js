@@ -23,7 +23,6 @@ const react_bootstrap_1 = require("react-bootstrap");
 const fa_1 = require("react-icons/fa");
 const react_use_precision_timer_1 = require("react-use-precision-timer");
 const passwords_1 = require("../passwords/passwords");
-const words_1 = require("../passwords/words");
 const RoboQuote_1 = require("./RoboQuote");
 const settings_1 = require("./settings");
 const SillyPasswordGenerator = (_a) => {
@@ -56,7 +55,7 @@ const SillyPasswordGenerator = (_a) => {
             generate();
         }
     }, [generate, shouldGenerate]);
-    const passwordAnalysis = (0, passwords_1.analyzePassword)(sillyPassword, [...words_1.allCreatures, ...words_1.attributes]);
+    const passwordAnalysis = (0, passwords_1.analyzePassword)(sillyPassword);
     let effectiveScore = passwordAnalysis.score;
     // Force a lower score at less than 18 characters
     const isShortPassword = sillyPassword.length < 18;
