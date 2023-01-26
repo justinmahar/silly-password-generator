@@ -10,8 +10,8 @@ export interface SillyPasswordOptions {
 
 export const DEFAULT_OPTIONS = {
   wordCount: 4,
-  capitalize: true,
-  suffixCharacters: ['!'],
+  capitalize: false,
+  suffixCharacters: [''],
 };
 
 export const generateSillyPassword = (options?: SillyPasswordOptions): string => {
@@ -29,7 +29,7 @@ export const generateSillyPassword = (options?: SillyPasswordOptions): string =>
   if (opts.suffixCharacters.length > 0) {
     pass = pass + opts.suffixCharacters[Math.floor(Math.random() * opts.suffixCharacters.length)];
   }
-  return pass.toLowerCase();
+  return pass;
 };
 
 export const analyzePassword = (sillyPassword: string, userInputs?: string[] | undefined): zxcvbn.ZXCVBNResult => {

@@ -7,14 +7,14 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { SillyPasswordGenerator } from '../components/SillyPasswordGenerator';
+import { SillyPasswordGenerator as SPG } from '../components/SillyPasswordGenerator';
 
 export default {
-  title: 'Stories/SillyPasswordGenerator',
-  component: SillyPasswordGenerator,
-} as ComponentMeta<typeof SillyPasswordGenerator>;
+  title: 'Tools',
+  component: SPG,
+} as ComponentMeta<typeof SPG>;
 
-const Template: ComponentStory<typeof SillyPasswordGenerator> = (args) => <SillyPasswordGenerator {...args} />;
+const Template: ComponentStory<typeof SPG> = (args) => <SPG {...args} />;
 
-export const Generator = Template.bind({});
-Generator.args = {};
+export const SillyPasswordGenerator = Template.bind({});
+SillyPasswordGenerator.args = {};
