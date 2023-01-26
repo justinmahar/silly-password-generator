@@ -15,6 +15,12 @@ const SillyPasswordGenerator_1 = require("../components/SillyPasswordGenerator")
 exports.default = {
     title: 'Tools',
     component: SillyPasswordGenerator_1.SillyPasswordGenerator,
+    parameters: {
+        controls: {
+            disabled: true,
+        },
+        options: { showPanel: false },
+    },
 };
 const Template = (args) => react_1.default.createElement(SillyPasswordGenerator_1.SillyPasswordGenerator, Object.assign({}, args));
 exports.SillyPasswordGenerator = Template.bind({});

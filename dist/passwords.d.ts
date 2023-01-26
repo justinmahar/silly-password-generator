@@ -4,7 +4,7 @@ export interface SillyPasswordOptions {
     capitalize?: boolean;
     suffixCharacters?: string[];
 }
-export declare const DEFAULT_OPTIONS: {
+export declare const DEFAULT_PASSWORD_OPTIONS: {
     wordCount: number;
     capitalize: boolean;
     suffixCharacters: string[];

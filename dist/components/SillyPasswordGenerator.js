@@ -28,16 +28,18 @@ const SillyPasswordGenerator = (_a) => {
     var props = __rest(_a, []);
     const [showCopied, toggleShowCopied] = (0, react_use_precision_timer_1.useMomentaryBool)(false, 1500);
     const [thinking, toggleThinking] = (0, react_use_precision_timer_1.useMomentaryBool)(false, 300);
-    const [wordCount, setWordCount] = (0, react_storage_complete_1.useLocalStorage)('wordCount', 4, { prefix: STORAGE_PREFIX });
+    const [wordCount, setWordCount] = (0, react_storage_complete_1.useLocalStorage)('wordCount', passwords_1.DEFAULT_PASSWORD_OPTIONS.wordCount, {
+        prefix: STORAGE_PREFIX,
+    });
     const [capitalize, setCapitalize] = (0, react_storage_complete_1.useLocalStorage)('capitalize', false, { prefix: STORAGE_PREFIX });
-    const [endingPunctuation, setEndingPunctuation] = (0, react_storage_complete_1.useLocalStorage)('endingPunctuation', '!', {
+    const [endingPunctuation, setEndingPunctuation] = (0, react_storage_complete_1.useLocalStorage)('endingPunctuation', passwords_1.DEFAULT_PASSWORD_OPTIONS.suffixCharacters.join(''), {
         prefix: STORAGE_PREFIX,
     });
     const options = react_1.default.useMemo(() => {
         return {
             capitalize: !!capitalize,
             suffixCharacters: [...new Set((endingPunctuation !== null && endingPunctuation !== void 0 ? endingPunctuation : '').split(''))],
-            wordCount: wordCount !== null && wordCount !== void 0 ? wordCount : 4,
+            wordCount: wordCount !== null && wordCount !== void 0 ? wordCount : passwords_1.DEFAULT_PASSWORD_OPTIONS.wordCount,
         };
     }, [capitalize, endingPunctuation, wordCount]);
     const initialPassword = react_1.default.useMemo(() => (0, passwords_1.generateSillyPassword)(options), []); // No deps; one-time only.
@@ -163,4 +165,4 @@ const SillyPasswordGenerator = (_a) => {
                                         react_1.default.createElement("a", { className: "text-decoration-none", href: "https://github.com/justinmahar/silly-password-generator" }, "View on GitHub")))))))))));
 };
 exports.SillyPasswordGenerator = SillyPasswordGenerator;
-const STORAGE_PREFIX = 'silly-password-generator_test';
+const STORAGE_PREFIX = 'silly-password-generator';
