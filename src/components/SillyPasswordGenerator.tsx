@@ -141,7 +141,7 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                                 step={1}
                                 type="number"
                                 style={{ width: 80 }}
-                                value={wordCount ?? 4}
+                                value={wordCount ?? DEFAULT_PASSWORD_OPTIONS.wordCount}
                                 onChange={(e) => {
                                   const newVal = parseInt(e.target.value);
                                   if (!isNaN(newVal)) {
@@ -154,7 +154,7 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                                 min={4}
                                 max={10}
                                 step={1}
-                                value={wordCount ?? 4}
+                                value={wordCount ?? DEFAULT_PASSWORD_OPTIONS.wordCount}
                                 onChange={(e) => {
                                   const newVal = parseInt(e.target.value);
                                   if (!isNaN(newVal)) {
@@ -181,7 +181,7 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                             <Form.Control
                               type="text"
                               placeholder="Enter some punctuation"
-                              value={endingPunctuation ?? ''}
+                              value={endingPunctuation ?? DEFAULT_PASSWORD_OPTIONS.suffixCharacters.join('')}
                               onChange={(e) => {
                                 setEndingPunctuation(e.target.value);
                                 setShouldGenerate(true);
