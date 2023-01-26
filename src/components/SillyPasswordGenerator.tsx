@@ -56,8 +56,15 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
 
   const passwordAnalysis = zxcbvn(sillyPassword);
 
+  let effectiveScore = passwordAnalysis.score;
+  // Force a lower score at less than 18 characters
+  const isShortPassword = sillyPassword.length < 18;
+  if (effectiveScore > 3 && isShortPassword) {
+    effectiveScore = 3;
+  }
+
   let scoreSentiments = 'really shitty';
-  switch (passwordAnalysis.score) {
+  switch (effectiveScore) {
     case 1:
       scoreSentiments = 'terrible';
       break;
@@ -75,10 +82,10 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
   }
 
   let strengthVariant = 'danger';
-  if (passwordAnalysis.score >= 2) {
+  if (effectiveScore >= 2) {
     strengthVariant = 'warning';
   }
-  if (passwordAnalysis.score >= 4) {
+  if (effectiveScore >= 4) {
     strengthVariant = 'success';
   }
 
@@ -104,6 +111,9 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                       <div style={{ fontSize: '150%' }}>Password</div>
                       <div>Generator</div>
                     </h1>
+                    <Alert variant={strengthVariant}>
+                      <h5 className="text-center mb-0">Generate silly passwords that are secure and easy to use.</h5>
+                    </Alert>
                     <div className="d-flex flex-column gap-2 my-4">
                       <div className="d-flex justify-content-center">
                         <Form.Control
@@ -202,11 +212,9 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                           ) : (
                             <Badge
                               bg={strengthVariant}
-                              className={classNames(
-                                passwordAnalysis.score >= 2 && passwordAnalysis.score <= 3 && 'text-black',
-                              )}
+                              className={classNames(effectiveScore >= 2 && effectiveScore <= 3 && 'text-black')}
                             >
-                              {passwordAnalysis.score}/4
+                              {effectiveScore}/4
                             </Badge>
                           )}
                           Password Strength
