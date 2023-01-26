@@ -15,7 +15,7 @@
 
 Read the **[official documentation](https://justinmahar.github.io/silly-password-generator/)**.
 
-### [→Generate Silly Passwords Here ←](https://justinmahar.github.io/silly-password-generator/?path=/story/stories-sillypasswordgenerator--generator)
+### [→Generate Silly Passwords Here ←](https://justinmahar.github.io/silly-password-generator/?path=/story/tools--silly-password-generator)
 
 ## Overview
 
@@ -85,7 +85,7 @@ npm i silly-password-generator
 
 ### Via Website
 
-Go here: [Silly Password Generator](https://justinmahar.github.io/silly-password-generator/?path=/story/stories-sillypasswordgenerator--generator)
+Go here: [Silly Password Generator](https://justinmahar.github.io/silly-password-generator/?path=/story/tools--silly-password-generator)
 
 ### Via npm
 
