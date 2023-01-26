@@ -2,7 +2,7 @@
   🔑 Silly Password Generator
 </h2>
 <h3 align="center">
-  Generate silly passwords that are secure and easy to use.
+  Generate silly passwords that are secure and easy to use. Inspired by [xkcd](https://xkcd.com/936/).
 </h3>
 <p align="center">
   <a href="https://badge.fury.io/js/silly-password-generator" target="_blank" rel="noopener noreferrer"><img src="https://badge.fury.io/js/silly-password-generator.svg" alt="npm Version" /></a>&nbsp;
@@ -19,7 +19,7 @@ Read the **[official documentation](https://justinmahar.github.io/silly-password
 
 ## Overview
 
-Generate fun and silly passwords that are secure, easy to type, and easy to remember.
+Generate fun and silly passwords that are secure, easy to type, and easy to remember. Inspired by [xkcd](https://xkcd.com/936/).
 
 Would you rather use the password [`Tr0ub4dor&3`](https://xkcd.com/936/) or `exciting creepy macho tiger`? 
 
