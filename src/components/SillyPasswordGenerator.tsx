@@ -4,8 +4,8 @@ import copy from 'copy-to-clipboard';
 import React from 'react';
 import { Accordion, Alert, Badge, Button, Card, Col, Container, Form, Row, Stack } from 'react-bootstrap';
 import { DivProps } from 'react-html-props';
+import { FaGithub, FaStar } from 'react-icons/fa';
 import { useMomentaryBool } from 'react-use-precision-timer';
-import zxcbvn from 'zxcvbn';
 import { analyzePassword, DEFAULT_PASSWORD_OPTIONS, generateSillyPassword } from '../passwords/passwords';
 import { RoboQuote } from './RoboQuote';
 import { MAX_WORD_COUNT, useSettings } from './settings';
@@ -67,7 +67,7 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
 
   return (
     <div {...props} style={{ ...props.style }}>
-      <style>@import url('https://fonts.googleapis.com/css2?family=Underdog&display=swap');</style>
+      <style>@import url('https://fonts.googleapis.com/css2?family=Underdog&family=Rye&display=swap');</style>
       <div>
         <Container>
           <Row>
@@ -76,7 +76,7 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                 <Card.Body>
                   <Stack gap={2}>
                     <h1
-                      className={`d-flex flex-column text-center my-3 text-${strengthVariant}`}
+                      className={`position-relative d-flex flex-column text-center my-3 text-${strengthVariant}`}
                       style={{
                         fontFamily: "'Underdog', sans-serif",
                         lineHeight: '45px',
@@ -85,11 +85,22 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                       <div>Silly</div>
                       <div
                         className="position-relative"
-                        style={{ fontSize: '180%', transform: 'rotate(-3deg)', top: -5 }}
+                        style={{
+                          fontFamily: "'Rye', sans-serif",
+                          fontSize: '180%',
+                          transform: 'rotate(-3deg)',
+                          top: -5,
+                        }}
                       >
                         Password
                       </div>
                       <div>Generator</div>
+                      <div className="position-absolute" style={{ top: 15, left: '30%' }}>
+                        *
+                      </div>
+                      <div className="position-absolute" style={{ bottom: 10, left: '70%', transform: 'scaleX(-1)' }}>
+                        *
+                      </div>
                     </h1>
                     <Alert variant={strengthVariant}>
                       <h5 className="text-center mb-0">Generate silly passwords that are secure and easy to use.</h5>
@@ -205,26 +216,32 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                         Password analysis powered by <a href="https://www.npmjs.com/package/zxcvbn">zxcvbn</a>.
                       </Form.Text>
                     </Alert>
-                    <Alert variant="dark">
-                      Note from the developer: This password generator is hot off the press! Even better passwords are
-                      coming soon. 🍻
-                    </Alert>
-                    <div className="d-flex flex-wrap justify-content-center align-items-center gap-1 mb-2">
-                      Inspired by{' '}
+                    <div className="d-flex flex-wrap justify-content-center align-items-center gap-4 mb-2">
+                      <div>
+                        Inspired by{' '}
+                        <a
+                          className="text-decoration-none"
+                          href="https://xkcd.com/936/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          xkcd
+                        </a>
+                      </div>
                       <a
-                        className="text-decoration-none"
-                        href="https://xkcd.com/936/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        xkcd
-                      </a>
-                      <div>&#x2022;</div>
-                      <a
-                        className="text-decoration-none"
+                        className="text-decoration-none  d-flex align-items-center gap-1"
                         href="https://github.com/justinmahar/silly-password-generator"
                       >
-                        View on GitHub
+                        <FaGithub className="text-black" /> View on GitHub
+                      </a>
+                    </div>
+                    <div className="d-flex flex-wrap justify-content-center align-items-center gap-1 mb-2">
+                      Love it?
+                      <a
+                        className="text-decoration-none d-flex align-items-center gap-1"
+                        href="https://github.com/justinmahar/silly-password-generator/stargazers"
+                      >
+                        <FaStar className="text-warning" /> Star It!
                       </a>
                     </div>
                   </Stack>
