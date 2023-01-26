@@ -20,6 +20,7 @@ const classnames_1 = __importDefault(require("classnames"));
 const copy_to_clipboard_1 = __importDefault(require("copy-to-clipboard"));
 const react_1 = __importDefault(require("react"));
 const react_bootstrap_1 = require("react-bootstrap");
+const fa_1 = require("react-icons/fa");
 const react_use_precision_timer_1 = require("react-use-precision-timer");
 const passwords_1 = require("../passwords/passwords");
 const RoboQuote_1 = require("./RoboQuote");
@@ -69,7 +70,7 @@ const SillyPasswordGenerator = (_a) => {
         strengthVariant = 'success';
     }
     return (react_1.default.createElement("div", Object.assign({}, props, { style: Object.assign({}, props.style) }),
-        react_1.default.createElement("style", null, "@import url('https://fonts.googleapis.com/css2?family=Underdog&display=swap');"),
+        react_1.default.createElement("style", null, "@import url('https://fonts.googleapis.com/css2?family=Underdog&family=Rye&display=swap');"),
         react_1.default.createElement("div", null,
             react_1.default.createElement(react_bootstrap_1.Container, null,
                 react_1.default.createElement(react_bootstrap_1.Row, null,
@@ -77,13 +78,20 @@ const SillyPasswordGenerator = (_a) => {
                         react_1.default.createElement(react_bootstrap_1.Card, { className: "shadow" },
                             react_1.default.createElement(react_bootstrap_1.Card.Body, null,
                                 react_1.default.createElement(react_bootstrap_1.Stack, { gap: 2 },
-                                    react_1.default.createElement("h1", { className: `d-flex flex-column text-center my-3 text-${strengthVariant}`, style: {
+                                    react_1.default.createElement("h1", { className: `position-relative d-flex flex-column text-center my-3 text-${strengthVariant}`, style: {
                                             fontFamily: "'Underdog', sans-serif",
                                             lineHeight: '45px',
                                         } },
                                         react_1.default.createElement("div", null, "Silly"),
-                                        react_1.default.createElement("div", { className: "position-relative", style: { fontSize: '180%', transform: 'rotate(-3deg)', top: -5 } }, "Password"),
-                                        react_1.default.createElement("div", null, "Generator")),
+                                        react_1.default.createElement("div", { className: "position-relative", style: {
+                                                fontFamily: "'Rye', sans-serif",
+                                                fontSize: '180%',
+                                                transform: 'rotate(-3deg)',
+                                                top: -5,
+                                            } }, "Password"),
+                                        react_1.default.createElement("div", null, "Generator"),
+                                        react_1.default.createElement("div", { className: "position-absolute", style: { top: 15, left: '30%' } }, "*"),
+                                        react_1.default.createElement("div", { className: "position-absolute", style: { bottom: 10, left: '70%', transform: 'scaleX(-1)' } }, "*")),
                                     react_1.default.createElement(react_bootstrap_1.Alert, { variant: strengthVariant },
                                         react_1.default.createElement("h5", { className: "text-center mb-0" }, "Generate silly passwords that are secure and easy to use.")),
                                     react_1.default.createElement("div", { className: "d-flex flex-column gap-2 my-4" },
@@ -140,12 +148,18 @@ const SillyPasswordGenerator = (_a) => {
                                             "Password analysis powered by ",
                                             react_1.default.createElement("a", { href: "https://www.npmjs.com/package/zxcvbn" }, "zxcvbn"),
                                             ".")),
-                                    react_1.default.createElement(react_bootstrap_1.Alert, { variant: "dark" }, "Note from the developer: This password generator is hot off the press! Even better passwords are coming soon. \uD83C\uDF7B"),
+                                    react_1.default.createElement("div", { className: "d-flex flex-wrap justify-content-center align-items-center gap-4 mb-2" },
+                                        react_1.default.createElement("div", null,
+                                            "Inspired by",
+                                            ' ',
+                                            react_1.default.createElement("a", { className: "text-decoration-none", href: "https://xkcd.com/936/", target: "_blank", rel: "noopener noreferrer" }, "xkcd")),
+                                        react_1.default.createElement("a", { className: "text-decoration-none  d-flex align-items-center gap-1", href: "https://github.com/justinmahar/silly-password-generator" },
+                                            react_1.default.createElement(fa_1.FaGithub, { className: "text-black" }),
+                                            " View on GitHub")),
                                     react_1.default.createElement("div", { className: "d-flex flex-wrap justify-content-center align-items-center gap-1 mb-2" },
-                                        "Inspired by",
-                                        ' ',
-                                        react_1.default.createElement("a", { className: "text-decoration-none", href: "https://xkcd.com/936/", target: "_blank", rel: "noopener noreferrer" }, "xkcd"),
-                                        react_1.default.createElement("div", null, "\u2022"),
-                                        react_1.default.createElement("a", { className: "text-decoration-none", href: "https://github.com/justinmahar/silly-password-generator" }, "View on GitHub")))))))))));
+                                        "Love it?",
+                                        react_1.default.createElement("a", { className: "text-decoration-none d-flex align-items-center gap-1", href: "https://github.com/justinmahar/silly-password-generator/stargazers" },
+                                            react_1.default.createElement(fa_1.FaStar, { className: "text-warning" }),
+                                            " Star It!")))))))))));
 };
 exports.SillyPasswordGenerator = SillyPasswordGenerator;
