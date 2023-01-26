@@ -4,7 +4,7 @@
   "coreVersion": "2.4.11",
   "author": "Justin Mahar <contact@justinmahar.com>",
   "description": "🔑 Generate silly passwords that are secure and easy to use. Inspired by xkcd.",
-  "homepage": "https://justinmahar.github.io/react-kindling/",
+  "homepage": "https://justinmahar.github.io/silly-password-generator/",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
@@ -22,10 +22,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/justinmahar/react-kindling.git"
+    "url": "git+https://github.com/justinmahar/silly-password-generator.git"
   },
   "bugs": {
-    "url": "https://github.com/justinmahar/react-kindling/issues"
+    "url": "https://github.com/justinmahar/silly-password-generator/issues"
   },
   "keywords": [
     "silly",
