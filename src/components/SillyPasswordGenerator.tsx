@@ -128,7 +128,7 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                         </Button>
                       </div>
                     </div>
-                    <Accordion defaultActiveKey="0">
+                    <Accordion>
                       <Accordion.Item eventKey="0">
                         <Accordion.Header>Options</Accordion.Header>
                         <Accordion.Body className="d-flex flex-column gap-3">
