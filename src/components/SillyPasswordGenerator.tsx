@@ -1,37 +1,33 @@
-import { useLocalStorage } from 'react-storage-complete';
-import classNames from 'classnames';
-import { Accordion, Alert, Badge, Button, Card, Col, Container, Form, Row, Spinner, Stack } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
+import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
 import React from 'react';
+import { Accordion, Alert, Badge, Button, Card, Col, Container, Form, Row, Stack } from 'react-bootstrap';
 import { DivProps } from 'react-html-props';
 import { useMomentaryBool } from 'react-use-precision-timer';
 import zxcbvn from 'zxcvbn';
-import { DEFAULT_PASSWORD_OPTIONS, generateSillyPassword } from '../passwords';
+import { analyzePassword, DEFAULT_PASSWORD_OPTIONS, generateSillyPassword } from '../passwords/passwords';
+import { RoboQuote } from './RoboQuote';
+import { MAX_WORD_COUNT, useSettings } from './settings';
 
 export interface SillyPasswordGeneratorProps extends DivProps {}
 
 export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps) => {
   const [showCopied, toggleShowCopied] = useMomentaryBool(false, 1500);
 
-  const [wordCount, setWordCount] = useLocalStorage('wordCount', DEFAULT_PASSWORD_OPTIONS.wordCount, {
-    prefix: STORAGE_PREFIX,
-  });
-  const [capitalize, setCapitalize] = useLocalStorage('capitalize', false, { prefix: STORAGE_PREFIX });
-  const [endingPunctuation, setEndingPunctuation] = useLocalStorage(
-    'endingPunctuation',
-    DEFAULT_PASSWORD_OPTIONS.suffixCharacters.join(''),
-    {
-      prefix: STORAGE_PREFIX,
-    },
-  );
+  const settings = useSettings();
+
+  const [wordCount, setWordCount] = settings.wordCountState;
+  const [capitalize, setCapitalize] = settings.capitalizeState;
+  const [salt, setSalt] = settings.saltState;
+
   const options = React.useMemo(() => {
     return {
       capitalize: !!capitalize,
-      suffixCharacters: [...new Set((endingPunctuation ?? '').split(''))],
+      salt: salt ?? '',
       wordCount: wordCount ?? DEFAULT_PASSWORD_OPTIONS.wordCount,
     };
-  }, [capitalize, endingPunctuation, wordCount]);
+  }, [capitalize, salt, wordCount]);
   const initialPassword = React.useMemo(() => generateSillyPassword(options), []); // No deps; one-time only.
   const [sillyPassword, setSillyPassword] = React.useState(initialPassword);
   const [shouldGenerate, setShouldGenerate] = React.useState(false);
@@ -52,31 +48,13 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
     }
   }, [generate, shouldGenerate]);
 
-  const passwordAnalysis = zxcbvn(sillyPassword);
+  const passwordAnalysis = analyzePassword(sillyPassword);
 
   let effectiveScore = passwordAnalysis.score;
   // Force a lower score at less than 18 characters
   const isShortPassword = sillyPassword.length < 18;
   if (effectiveScore > 3 && isShortPassword) {
     effectiveScore = 3;
-  }
-
-  let scoreSentiments = 'painfully bad';
-  switch (effectiveScore) {
-    case 1:
-      scoreSentiments = 'terrible';
-      break;
-    case 2:
-      scoreSentiments = 'lame';
-      break;
-    case 3:
-      scoreSentiments = 'decent';
-      break;
-    case 4:
-      scoreSentiments = 'rock solid';
-      break;
-    default:
-      scoreSentiments = 'painfully bad';
   }
 
   let strengthVariant = 'danger';
@@ -87,50 +65,9 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
     strengthVariant = 'success';
   }
 
-  let robotQuote = (
-    <>
-      🤖 “Awful. It would take{' '}
-      <span className="fw-bold">{passwordAnalysis.crack_times_display.offline_fast_hashing_1e10_per_second}</span> to
-      crack this <span className="fw-bold">{scoreSentiments}</span> password on an ultra fast computer.”
-    </>
-  );
-  if (effectiveScore >= 4) {
-    robotQuote = (
-      <>
-        🤖 “Looks great! It would take{' '}
-        <span className="fw-bold">{passwordAnalysis.crack_times_display.offline_fast_hashing_1e10_per_second}</span> to
-        crack this <span className="fw-bold">{scoreSentiments}</span> password on an ultra fast computer.”
-      </>
-    );
-  } else if (effectiveScore >= 3) {
-    robotQuote = (
-      <>
-        🤖 “Not the worst I've seen, but it would take{' '}
-        <span className="fw-bold">{passwordAnalysis.crack_times_display.offline_fast_hashing_1e10_per_second}</span> to
-        crack this <span className="fw-bold">{scoreSentiments}</span> password on an ultra fast computer.”
-      </>
-    );
-  } else if (effectiveScore >= 2) {
-    robotQuote = (
-      <>
-        🤖 “It's not great. It would take{' '}
-        <span className="fw-bold">{passwordAnalysis.crack_times_display.offline_fast_hashing_1e10_per_second}</span> to
-        crack this <span className="fw-bold">{scoreSentiments}</span> password on an ultra fast computer.”
-      </>
-    );
-  } else if (effectiveScore >= 1) {
-    robotQuote = (
-      <>
-        🤖 “Dang, that's a bad one. It would take{' '}
-        <span className="fw-bold">{passwordAnalysis.crack_times_display.offline_fast_hashing_1e10_per_second}</span> to
-        crack this <span className="fw-bold">{scoreSentiments}</span> password on an ultra fast computer.”
-      </>
-    );
-  }
-
   return (
     <div {...props} style={{ ...props.style }}>
-      <style>@import url('https://fonts.googleapis.com/css2?family=Rye&family=Sigmar+One&display=swap');</style>
+      <style>@import url('https://fonts.googleapis.com/css2?family=Underdog&display=swap');</style>
       <div>
         <Container>
           <Row>
@@ -141,13 +78,17 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                     <h1
                       className={`d-flex flex-column text-center my-3 text-${strengthVariant}`}
                       style={{
-                        fontFamily: "'Sigmar One', cursive",
-                        // WebkitTextFillColor: 'white',
-                        // WebkitTextStroke: '1px black',
+                        fontFamily: "'Underdog', sans-serif",
+                        lineHeight: '45px',
                       }}
                     >
                       <div>Silly</div>
-                      <div style={{ fontSize: '150%' }}>Password</div>
+                      <div
+                        className="position-relative"
+                        style={{ fontSize: '180%', transform: 'rotate(-3deg)', top: -5 }}
+                      >
+                        Password
+                      </div>
                       <div>Generator</div>
                     </h1>
                     <Alert variant={strengthVariant}>
@@ -218,6 +159,7 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                             <Form.Check
                               label="Capitalize"
                               id="capitalize-checkbox"
+                              className="user-select-none"
                               checked={!!capitalize}
                               onChange={(e) => {
                                 setCapitalize(e.target.checked);
@@ -225,19 +167,19 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                               }}
                             />
                           </div>
-                          <Form.Group controlId="form-group-word-count">
-                            <Form.Label className="fw-bold">Ending Punctuation</Form.Label>
+                          <Form.Group controlId="form-group-salt">
+                            <Form.Label className="fw-bold">🧂 Salt</Form.Label>
                             <Form.Control
                               type="text"
-                              placeholder="Enter some punctuation"
-                              value={endingPunctuation ?? DEFAULT_PASSWORD_OPTIONS.suffixCharacters.join('')}
+                              placeholder="Make it salty"
+                              value={salt ?? DEFAULT_PASSWORD_OPTIONS.salt}
                               onChange={(e) => {
-                                setEndingPunctuation(e.target.value);
+                                setSalt(e.target.value);
                                 setShouldGenerate(true);
                               }}
                             />
                             <Form.Text className="text-muted">
-                              The generated password will end with one of these characters.
+                              Everything is better with a little salt. Your generated password will end with this text.
                             </Form.Text>
                           </Form.Group>
                         </Accordion.Body>
@@ -256,7 +198,9 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                         </div>
                       </h5>
                       <h6>What does our password cracking robot have to say?</h6>
-                      <p>{robotQuote}</p>
+                      <p>
+                        <RoboQuote effectiveScore={effectiveScore} analysis={passwordAnalysis} />
+                      </p>
                       <Form.Text className="text-muted">
                         Password analysis powered by <a href="https://www.npmjs.com/package/zxcvbn">zxcvbn</a>.
                       </Form.Text>
@@ -265,7 +209,17 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                       Note from the developer: This password generator is hot off the press! Even better passwords are
                       coming soon. 🍻
                     </Alert>
-                    <div className="text-center mb-2">
+                    <div className="d-flex flex-wrap justify-content-center align-items-center gap-1 mb-2">
+                      Inspired by{' '}
+                      <a
+                        className="text-decoration-none"
+                        href="https://xkcd.com/936/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        xkcd
+                      </a>
+                      <div>&#x2022;</div>
                       <a
                         className="text-decoration-none"
                         href="https://github.com/justinmahar/silly-password-generator"
@@ -283,7 +237,3 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
     </div>
   );
 };
-
-const STORAGE_PREFIX = 'silly-password-generator';
-
-export const MAX_WORD_COUNT = 20;

@@ -1,17 +1,17 @@
 import { capitalize } from 'lodash';
 import zxcvbn from 'zxcvbn';
-import { allCreatures, attributes } from './components/words';
+import { allCreatures, attributes } from './words';
 
 export interface SillyPasswordOptions {
   wordCount?: number;
   capitalize?: boolean;
-  suffixCharacters?: string[];
+  salt?: string;
 }
 
 export const DEFAULT_PASSWORD_OPTIONS = {
   wordCount: 4,
   capitalize: false,
-  suffixCharacters: [''],
+  salt: '',
 };
 
 export const generateSillyPassword = (options?: SillyPasswordOptions): string => {
@@ -26,8 +26,8 @@ export const generateSillyPassword = (options?: SillyPasswordOptions): string =>
   if (opts.capitalize) {
     pass = capitalize(pass);
   }
-  if (opts.suffixCharacters.length > 0) {
-    pass = pass + opts.suffixCharacters[Math.floor(Math.random() * opts.suffixCharacters.length)];
+  if (opts.salt) {
+    pass = pass + opts.salt;
   }
   return pass;
 };

@@ -15,7 +15,7 @@
 
 Read the **[official documentation](https://justinmahar.github.io/silly-password-generator/)**.
 
-### [→ Generate Silly Passwords Here ←](https://justinmahar.github.io/silly-password-generator/?path=/story/tools--silly-password-generator)
+### [→ Generate Silly Passwords ←](https://justinmahar.github.io/silly-password-generator/?path=/story/tools--silly-password-generator)
 
 ## Overview
 
@@ -59,7 +59,7 @@ Your support helps keep the project going and will earn you some serious virtual
 ## Table of Contents 
 
 - [Documentation](#documentation)
-  - [→ Generate Silly Passwords Here ←](#-generate-silly-passwords-here-)
+  - [→ Generate Silly Passwords ←](#-generate-silly-passwords-)
 - [Overview](#overview)
   - [Features include:](#features-include)
 - [Donate](#donate)
@@ -96,15 +96,18 @@ import { generateSillyPassword } from 'silly-password-generator';
 ```js
 // Use with no options to generate a 4-word silly password
 generateSillyPassword(); // `thorough loud annoying penguin`
+
 // Provide a custom word count if you'd like
 generateSillyPassword({ wordCount: 7 }); // `glamorous large powerful fast black noisy clam`
+
 // Capitalize the first letter of the resulting password
 generateSillyPassword({ capitalize: true }); // `Curious fluffy excited copperhead`
-// Passwords will end with one of these characters selected at random.
-generateSillyPassword({ suffixCharacters: ["!", "?"] }); // `damned important envious pangolin?`
+
+// You can provide salt to strengthen your passwords, too. Salt is appended to the end.
+generateSillyPassword({ salt: "!?!?" }); // `damned important envious pangolin!?!?`
 ```
 
-> Combine as many options as you'd like. The `wordCount` must be at least `1`.
+> Combine options as you see fit. The `wordCount` must be at least `1`.
 
 ### Analyzing Password Strength
 
