@@ -15,7 +15,7 @@
 
 Read the **[official documentation](https://justinmahar.github.io/silly-password-generator/)**.
 
-### [→Generate Silly Passwords Here ←](https://justinmahar.github.io/silly-password-generator/?path=/story/tools--silly-password-generator)
+### [→ Generate Silly Passwords Here ←](https://justinmahar.github.io/silly-password-generator/?path=/story/tools--silly-password-generator)
 
 ## Overview
 
@@ -59,7 +59,7 @@ Your support helps keep the project going and will earn you some serious virtual
 ## Table of Contents 
 
 - [Documentation](#documentation)
-  - [→Generate Silly Passwords Here ←](#generate-silly-passwords-here-)
+  - [→ Generate Silly Passwords Here ←](#-generate-silly-passwords-here-)
 - [Overview](#overview)
   - [Features include:](#features-include)
 - [Donate](#donate)
