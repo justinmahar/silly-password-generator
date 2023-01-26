@@ -61,7 +61,7 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
     effectiveScore = 3;
   }
 
-  let scoreSentiments = 'really shitty';
+  let scoreSentiments = 'painfully bad';
   switch (effectiveScore) {
     case 1:
       scoreSentiments = 'terrible';
@@ -76,7 +76,7 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
       scoreSentiments = 'rock solid';
       break;
     default:
-      scoreSentiments = 'really shitty';
+      scoreSentiments = 'painfully bad';
   }
 
   let strengthVariant = 'danger';
@@ -85,6 +85,47 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
   }
   if (effectiveScore >= 4) {
     strengthVariant = 'success';
+  }
+
+  let robotQuote = (
+    <>
+      🤖 “Awful. It would take{' '}
+      <span className="fw-bold">{passwordAnalysis.crack_times_display.offline_fast_hashing_1e10_per_second}</span> to
+      crack this <span className="fw-bold">{scoreSentiments}</span> password on an ultra fast computer.”
+    </>
+  );
+  if (effectiveScore >= 4) {
+    robotQuote = (
+      <>
+        🤖 “Looks great! It would take{' '}
+        <span className="fw-bold">{passwordAnalysis.crack_times_display.offline_fast_hashing_1e10_per_second}</span> to
+        crack this <span className="fw-bold">{scoreSentiments}</span> password on an ultra fast computer.”
+      </>
+    );
+  } else if (effectiveScore >= 3) {
+    robotQuote = (
+      <>
+        🤖 “Not the worst I've seen, but it would take{' '}
+        <span className="fw-bold">{passwordAnalysis.crack_times_display.offline_fast_hashing_1e10_per_second}</span> to
+        crack this <span className="fw-bold">{scoreSentiments}</span> password on an ultra fast computer.”
+      </>
+    );
+  } else if (effectiveScore >= 2) {
+    robotQuote = (
+      <>
+        🤖 “It's not great. It would take{' '}
+        <span className="fw-bold">{passwordAnalysis.crack_times_display.offline_fast_hashing_1e10_per_second}</span> to
+        crack this <span className="fw-bold">{scoreSentiments}</span> password on an ultra fast computer.”
+      </>
+    );
+  } else if (effectiveScore >= 1) {
+    robotQuote = (
+      <>
+        🤖 “Dang, that's a bad one. It would take{' '}
+        <span className="fw-bold">{passwordAnalysis.crack_times_display.offline_fast_hashing_1e10_per_second}</span> to
+        crack this <span className="fw-bold">{scoreSentiments}</span> password on an ultra fast computer.”
+      </>
+    );
   }
 
   return (
@@ -144,7 +185,7 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                             <Form.Label className="fw-bold">Number of Words</Form.Label>
                             <div className="d-flex align-items-center gap-2">
                               <Form.Control
-                                min={4}
+                                min={2}
                                 max={10}
                                 step={1}
                                 type="number"
@@ -159,7 +200,7 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                                 }}
                               />
                               <Form.Range
-                                min={4}
+                                min={2}
                                 max={10}
                                 step={1}
                                 value={wordCount ?? DEFAULT_PASSWORD_OPTIONS.wordCount}
@@ -215,15 +256,10 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                         </div>
                       </h5>
                       <h6>What does our password cracking robot have to say?</h6>
-                      <p className="mb-0">
-                        🤖 “I'm kind of obsessed with cracking passwords, and it would take{' '}
-                        <span className="fw-bold">
-                          {passwordAnalysis.crack_times_display.offline_fast_hashing_1e10_per_second}
-                        </span>{' '}
-                        to crack this <span className="fw-bold">{scoreSentiments}</span> password on an ultra fast
-                        computer!” &mdash;Robot powered by questionable morals (and{' '}
-                        <a href="https://www.npmjs.com/package/zxcvbn">zxcvbn</a>)
-                      </p>
+                      <p>{robotQuote}</p>
+                      <Form.Text className="text-muted">
+                        Password analysis powered by <a href="https://www.npmjs.com/package/zxcvbn">zxcvbn</a>.
+                      </Form.Text>
                     </Alert>
                     <Alert variant="dark">
                       Note from the developer: This password generator is hot off the press! Even better passwords are
