@@ -60,8 +60,14 @@ const SillyPasswordGenerator = (_a) => {
         }
     }, [generate, shouldGenerate]);
     const passwordAnalysis = (0, zxcvbn_1.default)(sillyPassword);
+    let effectiveScore = passwordAnalysis.score;
+    // Force a lower score at less than 18 characters
+    const isShortPassword = sillyPassword.length < 18;
+    if (effectiveScore > 3 && isShortPassword) {
+        effectiveScore = 3;
+    }
     let scoreSentiments = 'really shitty';
-    switch (passwordAnalysis.score) {
+    switch (effectiveScore) {
         case 1:
             scoreSentiments = 'terrible';
             break;
@@ -78,10 +84,10 @@ const SillyPasswordGenerator = (_a) => {
             scoreSentiments = 'really shitty';
     }
     let strengthVariant = 'danger';
-    if (passwordAnalysis.score >= 2) {
+    if (effectiveScore >= 2) {
         strengthVariant = 'warning';
     }
-    if (passwordAnalysis.score >= 4) {
+    if (effectiveScore >= 4) {
         strengthVariant = 'success';
     }
     return (react_1.default.createElement("div", Object.assign({}, props, { style: Object.assign({}, props.style) }),
@@ -101,6 +107,8 @@ const SillyPasswordGenerator = (_a) => {
                                         react_1.default.createElement("div", null, "Silly"),
                                         react_1.default.createElement("div", { style: { fontSize: '150%' } }, "Password"),
                                         react_1.default.createElement("div", null, "Generator")),
+                                    react_1.default.createElement(react_bootstrap_1.Alert, { variant: strengthVariant },
+                                        react_1.default.createElement("h5", { className: "text-center mb-0" }, "Generate silly passwords that are secure and easy to use.")),
                                     react_1.default.createElement("div", { className: "d-flex flex-column gap-2 my-4" },
                                         react_1.default.createElement("div", { className: "d-flex justify-content-center" },
                                             react_1.default.createElement(react_bootstrap_1.Form.Control, { placeholder: "Generate a silly password, silly!", value: sillyPassword, onChange: (e) => setSillyPassword(e.target.value), className: "d-none d-md-block fs-3 text-center" }),
@@ -144,8 +152,8 @@ const SillyPasswordGenerator = (_a) => {
                                     react_1.default.createElement(react_bootstrap_1.Alert, { variant: strengthVariant },
                                         react_1.default.createElement("h5", { className: "mb-4" },
                                             react_1.default.createElement("div", { className: "d-flex align-items-center gap-2" },
-                                                thinking ? (react_1.default.createElement(react_bootstrap_1.Spinner, { animation: "border", role: "status", size: "sm" })) : (react_1.default.createElement(react_bootstrap_1.Badge, { bg: strengthVariant, className: (0, classnames_1.default)(passwordAnalysis.score >= 2 && passwordAnalysis.score <= 3 && 'text-black') },
-                                                    passwordAnalysis.score,
+                                                thinking ? (react_1.default.createElement(react_bootstrap_1.Spinner, { animation: "border", role: "status", size: "sm" })) : (react_1.default.createElement(react_bootstrap_1.Badge, { bg: strengthVariant, className: (0, classnames_1.default)(effectiveScore >= 2 && effectiveScore <= 3 && 'text-black') },
+                                                    effectiveScore,
                                                     "/4")),
                                                 "Password Strength")),
                                         react_1.default.createElement("h6", null, "What does our password cracking robot have to say?"),
