@@ -30,7 +30,7 @@ The first would take 10 seconds to crack, the second would take centuries. Excit
 - **💩 Fun passwords are better than boring ones**
   - Why use lame and hard to remember passwords, when you can use fun ones... that are also secure?
 - **👨‍🔬 Password analysis**
-  - Leverage the brainpower of at least a dozens nerds. This library makes sure your password is secure using [zxcvbn](https://www.npmjs.com/package/zxcvbn).
+  - Leverage the brainpower of at least a dozen nerds. This library makes sure your password is secure using [zxcvbn](https://www.npmjs.com/package/zxcvbn).
 - **🔐 Secure**
   - Have I mentioned that they're secure? Well, they are!
 - **🔢 Customizable**
@@ -101,7 +101,7 @@ generateSillyPassword({ wordCount: 7 }); // `glamorous large powerful fast black
 // Capitalize the first letter of the resulting password
 generateSillyPassword({ capitalize: true }); // `Curious fluffy excited copperhead`
 // Passwords will end with one of these characters selected at random.
-generateSillyPassword({ suffixCharacters: ["!", "?"] }); // `Damned important envious pangolin?`
+generateSillyPassword({ suffixCharacters: ["!", "?"] }); // `damned important envious pangolin?`
 ```
 
 > Combine as many options as you'd like. The `wordCount` must be at least `1`.
