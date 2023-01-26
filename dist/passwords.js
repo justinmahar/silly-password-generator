@@ -9,6 +9,8 @@ const zxcvbn_1 = __importDefault(require("zxcvbn"));
 const words_1 = require("./components/words");
 exports.DEFAULT_OPTIONS = {
     wordCount: 4,
+    capitalize: false,
+    suffixCharacters: [''],
 };
 const generateSillyPassword = (options) => {
     const opts = Object.assign(Object.assign({}, exports.DEFAULT_OPTIONS), options);
@@ -17,8 +19,15 @@ const generateSillyPassword = (options) => {
         adjectives += words_1.attributes[Math.floor(Math.random() * words_1.allCreatures.length)] + ' ';
     }
     const noun = words_1.allCreatures[Math.floor(Math.random() * words_1.allCreatures.length)];
-    const pass = adjectives + noun + '!';
-    return (0, lodash_1.capitalize)(pass.toLowerCase());
+    let pass = adjectives + noun;
+    pass = pass.toLowerCase();
+    if (opts.capitalize) {
+        pass = (0, lodash_1.capitalize)(pass);
+    }
+    if (opts.suffixCharacters.length > 0) {
+        pass = pass + opts.suffixCharacters[Math.floor(Math.random() * opts.suffixCharacters.length)];
+    }
+    return pass;
 };
 exports.generateSillyPassword = generateSillyPassword;
 const analyzePassword = (sillyPassword, userInputs) => {

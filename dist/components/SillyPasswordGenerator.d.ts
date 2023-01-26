@@ -1,4 +1,5 @@
 /// <reference types="react" />
+import 'bootstrap/dist/css/bootstrap.css';
 import { DivProps } from 'react-html-props';
 export interface SillyPasswordGeneratorProps extends DivProps {
 }
