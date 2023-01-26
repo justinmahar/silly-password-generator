@@ -49,7 +49,7 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
     }
   }, [generate, shouldGenerate]);
 
-  const passwordAnalysis = analyzePassword(sillyPassword, [...allCreatures, ...attributes]);
+  const passwordAnalysis = analyzePassword(sillyPassword);
 
   let effectiveScore = passwordAnalysis.score;
   // Force a lower score at less than 18 characters

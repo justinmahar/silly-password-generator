@@ -14,11 +14,12 @@ export const DEFAULT_PASSWORD_OPTIONS = {
   salt: '',
 };
 
+const sources = [attributes, allCreatures];
+
 export const generateSillyPassword = (options?: SillyPasswordOptions): string => {
   const opts = { ...DEFAULT_PASSWORD_OPTIONS, ...options };
   const parts: string[] = [];
   const wordCount = Math.max(1, opts.wordCount);
-  const sources = [attributes, allCreatures];
   for (let i = 0; i < wordCount; i++) {
     const source =
       i === wordCount - 1 ? allCreatures : i === 0 ? attributes : sources[Math.floor(Math.random() * sources.length)];
@@ -35,5 +36,5 @@ export const generateSillyPassword = (options?: SillyPasswordOptions): string =>
 };
 
 export const analyzePassword = (sillyPassword: string, userInputs?: string[] | undefined): zxcvbn.ZXCVBNResult => {
-  return zxcvbn(sillyPassword, userInputs);
+  return zxcvbn(sillyPassword, [...sources.flat(), ...(userInputs ?? [])]);
 };
