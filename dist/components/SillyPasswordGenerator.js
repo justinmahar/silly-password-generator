@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SillyPasswordGenerator = void 0;
+exports.MAX_WORD_COUNT = exports.SillyPasswordGenerator = void 0;
 const react_storage_complete_1 = require("react-storage-complete");
 const classnames_1 = __importDefault(require("classnames"));
 const react_bootstrap_1 = require("react-bootstrap");
@@ -27,7 +27,6 @@ const passwords_1 = require("../passwords");
 const SillyPasswordGenerator = (_a) => {
     var props = __rest(_a, []);
     const [showCopied, toggleShowCopied] = (0, react_use_precision_timer_1.useMomentaryBool)(false, 1500);
-    const [thinking, toggleThinking] = (0, react_use_precision_timer_1.useMomentaryBool)(false, 300);
     const [wordCount, setWordCount] = (0, react_storage_complete_1.useLocalStorage)('wordCount', passwords_1.DEFAULT_PASSWORD_OPTIONS.wordCount, {
         prefix: STORAGE_PREFIX,
     });
@@ -47,8 +46,7 @@ const SillyPasswordGenerator = (_a) => {
     const [shouldGenerate, setShouldGenerate] = react_1.default.useState(false);
     const generate = react_1.default.useCallback(() => {
         setSillyPassword((0, passwords_1.generateSillyPassword)(options));
-        toggleThinking();
-    }, [options, toggleThinking]);
+    }, [options]);
     const handleCopyButton = () => {
         (0, copy_to_clipboard_1.default)(sillyPassword);
         toggleShowCopied();
@@ -126,14 +124,14 @@ const SillyPasswordGenerator = (_a) => {
                                                         react_1.default.createElement(react_bootstrap_1.Form.Control, { min: 4, max: 10, step: 1, type: "number", style: { width: 80 }, value: wordCount !== null && wordCount !== void 0 ? wordCount : passwords_1.DEFAULT_PASSWORD_OPTIONS.wordCount, onChange: (e) => {
                                                                 const newVal = parseInt(e.target.value);
                                                                 if (!isNaN(newVal)) {
-                                                                    setWordCount(newVal);
+                                                                    setWordCount(Math.max(1, Math.min(exports.MAX_WORD_COUNT, newVal)));
                                                                     setShouldGenerate(true);
                                                                 }
                                                             } }),
                                                         react_1.default.createElement(react_bootstrap_1.Form.Range, { min: 4, max: 10, step: 1, value: wordCount !== null && wordCount !== void 0 ? wordCount : passwords_1.DEFAULT_PASSWORD_OPTIONS.wordCount, onChange: (e) => {
                                                                 const newVal = parseInt(e.target.value);
                                                                 if (!isNaN(newVal)) {
-                                                                    setWordCount(newVal);
+                                                                    setWordCount(Math.max(1, Math.min(exports.MAX_WORD_COUNT, newVal)));
                                                                     setShouldGenerate(true);
                                                                 }
                                                             } }))),
@@ -152,12 +150,12 @@ const SillyPasswordGenerator = (_a) => {
                                     react_1.default.createElement(react_bootstrap_1.Alert, { variant: strengthVariant },
                                         react_1.default.createElement("h5", { className: "mb-4" },
                                             react_1.default.createElement("div", { className: "d-flex align-items-center gap-2" },
-                                                thinking ? (react_1.default.createElement(react_bootstrap_1.Spinner, { animation: "border", role: "status", size: "sm" })) : (react_1.default.createElement(react_bootstrap_1.Badge, { bg: strengthVariant, className: (0, classnames_1.default)(effectiveScore >= 2 && effectiveScore <= 3 && 'text-black') },
+                                                react_1.default.createElement(react_bootstrap_1.Badge, { bg: strengthVariant, className: (0, classnames_1.default)(effectiveScore >= 2 && effectiveScore <= 3 && 'text-black') },
                                                     effectiveScore,
-                                                    "/4")),
+                                                    "/4"),
                                                 "Password Strength")),
                                         react_1.default.createElement("h6", null, "What does our password cracking robot have to say?"),
-                                        thinking ? (react_1.default.createElement(react_bootstrap_1.Spinner, { animation: "border", role: "status", size: "sm" })) : (react_1.default.createElement("p", { className: "mb-0" },
+                                        react_1.default.createElement("p", { className: "mb-0" },
                                             "\uD83E\uDD16 \u201CI'm kind of obsessed with cracking passwords, and it would take",
                                             ' ',
                                             react_1.default.createElement("span", { className: "fw-bold" }, passwordAnalysis.crack_times_display.offline_fast_hashing_1e10_per_second),
@@ -167,10 +165,11 @@ const SillyPasswordGenerator = (_a) => {
                                             " password on an ultra fast computer!\u201D \u2014Robot powered by questionable morals (and",
                                             ' ',
                                             react_1.default.createElement("a", { href: "https://www.npmjs.com/package/zxcvbn" }, "zxcvbn"),
-                                            ")"))),
+                                            ")")),
                                     react_1.default.createElement(react_bootstrap_1.Alert, { variant: "dark" }, "Note from the developer: This password generator is hot off the press! Even better passwords are coming soon. \uD83C\uDF7B"),
                                     react_1.default.createElement("div", { className: "text-center mb-2" },
                                         react_1.default.createElement("a", { className: "text-decoration-none", href: "https://github.com/justinmahar/silly-password-generator" }, "View on GitHub")))))))))));
 };
 exports.SillyPasswordGenerator = SillyPasswordGenerator;
 const STORAGE_PREFIX = 'silly-password-generator';
+exports.MAX_WORD_COUNT = 20;
