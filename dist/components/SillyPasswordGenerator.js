@@ -108,7 +108,7 @@ const SillyPasswordGenerator = (_a) => {
                                         react_1.default.createElement("div", { className: "d-flex justify-content-center gap-2" },
                                             react_1.default.createElement(react_bootstrap_1.Button, { onClick: generate }, "Generate"),
                                             react_1.default.createElement(react_bootstrap_1.Button, { variant: "outline-primary", onClick: handleCopyButton }, showCopied ? '✅ Copied!' : 'Copy'))),
-                                    react_1.default.createElement(react_bootstrap_1.Accordion, { defaultActiveKey: "0" },
+                                    react_1.default.createElement(react_bootstrap_1.Accordion, null,
                                         react_1.default.createElement(react_bootstrap_1.Accordion.Item, { eventKey: "0" },
                                             react_1.default.createElement(react_bootstrap_1.Accordion.Header, null, "Options"),
                                             react_1.default.createElement(react_bootstrap_1.Accordion.Body, { className: "d-flex flex-column gap-3" },
