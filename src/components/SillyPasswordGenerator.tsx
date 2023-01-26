@@ -244,4 +244,4 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
   );
 };
 
-const STORAGE_PREFIX = 'silly-password-generator_test';
+const STORAGE_PREFIX = 'silly-password-generator';
