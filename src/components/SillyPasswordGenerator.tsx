@@ -13,7 +13,6 @@ export interface SillyPasswordGeneratorProps extends DivProps {}
 
 export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps) => {
   const [showCopied, toggleShowCopied] = useMomentaryBool(false, 1500);
-  const [thinking, toggleThinking] = useMomentaryBool(false, 300);
 
   const [wordCount, setWordCount] = useLocalStorage('wordCount', DEFAULT_PASSWORD_OPTIONS.wordCount, {
     prefix: STORAGE_PREFIX,
@@ -39,8 +38,7 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
 
   const generate = React.useCallback(() => {
     setSillyPassword(generateSillyPassword(options));
-    toggleThinking();
-  }, [options, toggleThinking]);
+  }, [options]);
 
   const handleCopyButton = () => {
     copy(sillyPassword);
@@ -207,33 +205,25 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                     <Alert variant={strengthVariant}>
                       <h5 className="mb-4">
                         <div className="d-flex align-items-center gap-2">
-                          {thinking ? (
-                            <Spinner animation="border" role="status" size="sm" />
-                          ) : (
-                            <Badge
-                              bg={strengthVariant}
-                              className={classNames(effectiveScore >= 2 && effectiveScore <= 3 && 'text-black')}
-                            >
-                              {effectiveScore}/4
-                            </Badge>
-                          )}
+                          <Badge
+                            bg={strengthVariant}
+                            className={classNames(effectiveScore >= 2 && effectiveScore <= 3 && 'text-black')}
+                          >
+                            {effectiveScore}/4
+                          </Badge>
                           Password Strength
                         </div>
                       </h5>
                       <h6>What does our password cracking robot have to say?</h6>
-                      {thinking ? (
-                        <Spinner animation="border" role="status" size="sm" />
-                      ) : (
-                        <p className="mb-0">
-                          🤖 “I'm kind of obsessed with cracking passwords, and it would take{' '}
-                          <span className="fw-bold">
-                            {passwordAnalysis.crack_times_display.offline_fast_hashing_1e10_per_second}
-                          </span>{' '}
-                          to crack this <span className="fw-bold">{scoreSentiments}</span> password on an ultra fast
-                          computer!” &mdash;Robot powered by questionable morals (and{' '}
-                          <a href="https://www.npmjs.com/package/zxcvbn">zxcvbn</a>)
-                        </p>
-                      )}
+                      <p className="mb-0">
+                        🤖 “I'm kind of obsessed with cracking passwords, and it would take{' '}
+                        <span className="fw-bold">
+                          {passwordAnalysis.crack_times_display.offline_fast_hashing_1e10_per_second}
+                        </span>{' '}
+                        to crack this <span className="fw-bold">{scoreSentiments}</span> password on an ultra fast
+                        computer!” &mdash;Robot powered by questionable morals (and{' '}
+                        <a href="https://www.npmjs.com/package/zxcvbn">zxcvbn</a>)
+                      </p>
                     </Alert>
                     <Alert variant="dark">
                       Note from the developer: This password generator is hot off the press! Even better passwords are
