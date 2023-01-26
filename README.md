@@ -98,9 +98,13 @@ import { generateSillyPassword } from 'silly-password-generator';
 generateSillyPassword(); // `thorough loud annoying penguin`
 // Provide a custom word count if you'd like
 generateSillyPassword({ wordCount: 7 }); // `glamorous large powerful fast black noisy clam`
+// Capitalize the first letter of the resulting password
+generateSillyPassword({ capitalize: true }); // `Curious fluffy excited copperhead`
+// Passwords will end with one of these characters selected at random.
+generateSillyPassword({ suffixCharacters: ["!", "?"] }); // `Damned important envious pangolin?`
 ```
 
-> Captain obvious here. The `wordCount` must be at least `1`.
+> Combine as many options as you'd like. The `wordCount` must be at least `1`.
 
 ### Analyzing Password Strength
 
@@ -112,7 +116,7 @@ import { analyzePassword } from 'silly-password-generator';
 
 ```js
 // Returns an object telling you how awesome or crappy your password is.
-analyzePassword(sillyPassword); 
+const results = analyzePassword(sillyPassword); 
 ```
 
 See the [zxcvbn Usage section](https://www.npmjs.com/package/zxcvbn#usage) for the properties available.
