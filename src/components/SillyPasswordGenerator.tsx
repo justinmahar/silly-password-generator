@@ -155,7 +155,7 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                                 onChange={(e) => {
                                   const newVal = parseInt(e.target.value);
                                   if (!isNaN(newVal)) {
-                                    setWordCount(newVal);
+                                    setWordCount(Math.max(1, Math.min(MAX_WORD_COUNT, newVal)));
                                     setShouldGenerate(true);
                                   }
                                 }}
@@ -168,7 +168,7 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                                 onChange={(e) => {
                                   const newVal = parseInt(e.target.value);
                                   if (!isNaN(newVal)) {
-                                    setWordCount(newVal);
+                                    setWordCount(Math.max(1, Math.min(MAX_WORD_COUNT, newVal)));
                                     setShouldGenerate(true);
                                   }
                                 }}
@@ -259,3 +259,5 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
 };
 
 const STORAGE_PREFIX = 'silly-password-generator';
+
+export const MAX_WORD_COUNT = 20;
