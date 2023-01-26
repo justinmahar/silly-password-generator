@@ -103,8 +103,6 @@ const mammals = [
     'Yak',
     'Zebra',
 ];
-const birdMult = 0.7;
-const birdType = 'Bird';
 const birds = [
     'Blue Jay',
     'Bluebird',

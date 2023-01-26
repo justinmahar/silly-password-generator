@@ -6,11 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.analyzePassword = exports.generateSillyPassword = exports.DEFAULT_PASSWORD_OPTIONS = void 0;
 const lodash_1 = require("lodash");
 const zxcvbn_1 = __importDefault(require("zxcvbn"));
-const words_1 = require("./components/words");
+const words_1 = require("./words");
 exports.DEFAULT_PASSWORD_OPTIONS = {
     wordCount: 4,
     capitalize: false,
-    suffixCharacters: [''],
+    salt: '',
 };
 const generateSillyPassword = (options) => {
     const opts = Object.assign(Object.assign({}, exports.DEFAULT_PASSWORD_OPTIONS), options);
@@ -24,8 +24,8 @@ const generateSillyPassword = (options) => {
     if (opts.capitalize) {
         pass = (0, lodash_1.capitalize)(pass);
     }
-    if (opts.suffixCharacters.length > 0) {
-        pass = pass + opts.suffixCharacters[Math.floor(Math.random() * opts.suffixCharacters.length)];
+    if (opts.salt) {
+        pass = pass + opts.salt;
     }
     return pass;
 };
