@@ -7,7 +7,7 @@ import React from 'react';
 import { DivProps } from 'react-html-props';
 import { useMomentaryBool } from 'react-use-precision-timer';
 import zxcbvn from 'zxcvbn';
-import { generateSillyPassword } from '../passwords';
+import { DEFAULT_PASSWORD_OPTIONS, generateSillyPassword } from '../passwords';
 
 export interface SillyPasswordGeneratorProps extends DivProps {}
 
@@ -15,16 +15,22 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
   const [showCopied, toggleShowCopied] = useMomentaryBool(false, 1500);
   const [thinking, toggleThinking] = useMomentaryBool(false, 300);
 
-  const [wordCount, setWordCount] = useLocalStorage('wordCount', 4, { prefix: STORAGE_PREFIX });
-  const [capitalize, setCapitalize] = useLocalStorage('capitalize', false, { prefix: STORAGE_PREFIX });
-  const [endingPunctuation, setEndingPunctuation] = useLocalStorage('endingPunctuation', '!', {
+  const [wordCount, setWordCount] = useLocalStorage('wordCount', DEFAULT_PASSWORD_OPTIONS.wordCount, {
     prefix: STORAGE_PREFIX,
   });
+  const [capitalize, setCapitalize] = useLocalStorage('capitalize', false, { prefix: STORAGE_PREFIX });
+  const [endingPunctuation, setEndingPunctuation] = useLocalStorage(
+    'endingPunctuation',
+    DEFAULT_PASSWORD_OPTIONS.suffixCharacters.join(''),
+    {
+      prefix: STORAGE_PREFIX,
+    },
+  );
   const options = React.useMemo(() => {
     return {
       capitalize: !!capitalize,
       suffixCharacters: [...new Set((endingPunctuation ?? '').split(''))],
-      wordCount: wordCount ?? 4,
+      wordCount: wordCount ?? DEFAULT_PASSWORD_OPTIONS.wordCount,
     };
   }, [capitalize, endingPunctuation, wordCount]);
   const initialPassword = React.useMemo(() => generateSillyPassword(options), []); // No deps; one-time only.

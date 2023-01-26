@@ -8,14 +8,14 @@ export interface SillyPasswordOptions {
   suffixCharacters?: string[];
 }
 
-export const DEFAULT_OPTIONS = {
+export const DEFAULT_PASSWORD_OPTIONS = {
   wordCount: 4,
   capitalize: false,
   suffixCharacters: [''],
 };
 
 export const generateSillyPassword = (options?: SillyPasswordOptions): string => {
-  const opts = { ...DEFAULT_OPTIONS, ...options };
+  const opts = { ...DEFAULT_PASSWORD_OPTIONS, ...options };
   let adjectives = '';
   for (let i = 0; i < Math.max(1, opts.wordCount) - 1; i++) {
     adjectives += attributes[Math.floor(Math.random() * allCreatures.length)] + ' ';

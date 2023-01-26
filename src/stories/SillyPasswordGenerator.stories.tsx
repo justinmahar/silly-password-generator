@@ -12,6 +12,12 @@ import { SillyPasswordGenerator as SPG } from '../components/SillyPasswordGenera
 export default {
   title: 'Tools',
   component: SPG,
+  parameters: {
+    controls: {
+      disabled: true,
+    },
+    options: { showPanel: false },
+  },
 } as ComponentMeta<typeof SPG>;
 
 const Template: ComponentStory<typeof SPG> = (args) => <SPG {...args} />;
