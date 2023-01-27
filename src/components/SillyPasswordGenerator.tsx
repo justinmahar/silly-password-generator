@@ -4,10 +4,9 @@ import copy from 'copy-to-clipboard';
 import React from 'react';
 import { Accordion, Alert, Badge, Button, Card, Col, Container, Form, Row, Stack } from 'react-bootstrap';
 import { DivProps } from 'react-html-props';
-import { FaGithub, FaStar } from 'react-icons/fa';
+import { FaGithub, FaStar, FaCheck, FaCopy } from 'react-icons/fa';
 import { useMomentaryBool } from 'react-use-precision-timer';
 import { analyzePassword, DEFAULT_PASSWORD_OPTIONS, generateSillyPassword } from '../passwords/passwords';
-import { allCreatures, attributes } from '../passwords/words';
 import { RoboQuote } from './RoboQuote';
 import { MAX_WORD_COUNT, useSettings } from './settings';
 
@@ -32,6 +31,7 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
   const initialPassword = React.useMemo(() => generateSillyPassword(options), []); // No deps; one-time only.
   const [sillyPassword, setSillyPassword] = React.useState(initialPassword);
   const [shouldGenerate, setShouldGenerate] = React.useState(false);
+  const [animationTime, setAnimationTime] = React.useState(new Date().getTime());
   const [shouldAnimate, setShouldAnimate] = React.useState(false);
 
   const generate = React.useCallback(() => {
@@ -40,6 +40,7 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
 
   const handleGenerateButton = () => {
     setShouldAnimate(true);
+    setAnimationTime(new Date().getTime());
     generate();
   };
 
@@ -107,6 +108,18 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
               transform: rotate(0deg);
             }
          }
+         .dip { 
+            animation-name: dip; 
+            animation-duration: 0.3s;
+         }
+         @keyframes dip {
+            0%, 100% {
+              transform: scale(1);
+            } 
+            20% {
+              transform: scale(0.95);
+            }
+         }
          `}
       </style>
       <div>
@@ -123,11 +136,11 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                         lineHeight: '45px',
                       }}
                     >
-                      <div key={`silly-heading-${sillyPassword}`} className={classNames(shouldAnimate && 'shake')}>
+                      <div key={`silly-heading-${animationTime}`} className={classNames(shouldAnimate && 'shake')}>
                         Silly
                       </div>
                       <div
-                        key={`password-heading-${sillyPassword}`}
+                        key={`password-heading-${animationTime}`}
                         className={classNames(
                           shouldAnimate && 'bounce',
                           'position-relative d-flex flex-wrap justify-content-center',
@@ -142,18 +155,18 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                         <div>Pass</div>
                         <div>word</div>
                       </div>
-                      <div key={`generator-heading-${sillyPassword}`} className={classNames(shouldAnimate && 'shake')}>
+                      <div key={`generator-heading-${animationTime}`} className={classNames(shouldAnimate && 'shake')}>
                         Generator
                       </div>
                       <div
-                        key={`asterisk-1-heading-${sillyPassword}`}
+                        key={`asterisk-1-heading-${animationTime}`}
                         className={classNames(shouldAnimate && 'shake', 'position-absolute')}
                         style={{ top: 15, left: '30%' }}
                       >
                         *
                       </div>
                       <div
-                        key={`asterisk-2-heading-${sillyPassword}`}
+                        key={`asterisk-2-heading-${animationTime}`}
                         className={classNames(shouldAnimate && 'shake', 'position-absolute')}
                         style={{ bottom: 10, left: '70%', transform: 'scaleX(-1)' }}
                       >
@@ -181,9 +194,29 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                         />
                       </div>
                       <div className="d-flex justify-content-center gap-2">
-                        <Button onClick={handleGenerateButton}>Generate</Button>
-                        <Button variant="outline-primary" onClick={handleCopyButton}>
-                          {showCopied ? '✅ Copied!' : 'Copy'}
+                        <Button
+                          key={`generate-button-${animationTime}`}
+                          onClick={handleGenerateButton}
+                          className={classNames(shouldAnimate && 'dip')}
+                        >
+                          Generate!
+                        </Button>
+                        <Button
+                          variant="outline-primary"
+                          onClick={handleCopyButton}
+                          className={classNames(showCopied && 'dip')}
+                        >
+                          {showCopied ? (
+                            <div className="d-flex align-items-center gap-2">
+                              <FaCheck />
+                              Copy
+                            </div>
+                          ) : (
+                            <div className="d-flex align-items-center gap-2">
+                              <FaCopy />
+                              Copy
+                            </div>
+                          )}
                         </Button>
                       </div>
                     </div>
@@ -265,7 +298,7 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                               shouldAnimate && 'shake',
                               effectiveScore >= 2 && effectiveScore <= 3 && 'text-black',
                             )}
-                            key={`rating-badge-${sillyPassword}`}
+                            key={`rating-badge-${animationTime}`}
                           >
                             {effectiveScore}/4
                           </Badge>
