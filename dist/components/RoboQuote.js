@@ -15,7 +15,7 @@ const RoboQuote = ({ effectiveScore, analysis, salt }) => {
             scoreSentiments = 'decent';
             break;
         case 2:
-            scoreSentiments = 'lame';
+            scoreSentiments = 'insufficient';
             break;
         case 1:
             scoreSentiments = 'terrible';
@@ -29,14 +29,16 @@ const RoboQuote = ({ effectiveScore, analysis, salt }) => {
         "\u201D");
     const analysisSentiments = (react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement("span", { className: "fw-bold" }, analysis.crack_times_display.offline_fast_hashing_1e10_per_second),
-        " to brute force crack this ",
+        " to brute-force crack this ",
         react_1.default.createElement("span", { className: "fw-bold" }, scoreSentiments),
-        " password on an ultra fast computer, even if the hacker knew about this password generator.",
-        !salt && (react_1.default.createElement(react_1.default.Fragment, null,
+        " password on an ultra fast computer",
+        effectiveScore >= 4 && react_1.default.createElement(react_1.default.Fragment, null, " (even if the hacker knew about this password generator)"),
+        ".",
+        !salt && effectiveScore >= 4 && (react_1.default.createElement(react_1.default.Fragment, null,
             ' ',
             "You can make your password even stronger by ",
             react_1.default.createElement("span", { className: "fw-bold" }, "adding some salt"),
-            " in Options. It could be something simple that only you know about."))));
+            " in Options."))));
     let robotQuote = makeRoboQuote(react_1.default.createElement(react_1.default.Fragment, null,
         "Awful. It would take ",
         analysisSentiments));

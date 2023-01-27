@@ -71,6 +71,41 @@ const SillyPasswordGenerator = (_a) => {
     }
     return (react_1.default.createElement("div", Object.assign({}, props, { style: Object.assign({}, props.style) }),
         react_1.default.createElement("style", null, "@import url('https://fonts.googleapis.com/css2?family=Underdog&family=Rye&display=swap');"),
+        react_1.default.createElement("style", null, `
+         .bounce { 
+            animation-name: bounce; 
+            animation-duration: 1s;
+         }
+         @keyframes bounce { 
+            0%, 100% {
+              transform: scale(1) rotate(-3deg);
+            } 
+            20% {
+              transform: scale(1.1) rotate(-2deg);
+            }
+         }
+         .shake { 
+            animation-name: shake; 
+            animation-duration: 0.3s;
+         }
+         @keyframes shake { 
+            0% {
+              transform: rotate(0deg);
+            }  
+            25% {
+              transform: rotate(-2deg);
+            } 
+            50% {
+              transform: rotate(2deg);
+            } 
+            75% {
+              transform: rotate(-2deg);
+            } 
+            100% {
+              transform: rotate(0deg);
+            }
+         }
+         `),
         react_1.default.createElement("div", null,
             react_1.default.createElement(react_bootstrap_1.Container, null,
                 react_1.default.createElement(react_bootstrap_1.Row, null,
@@ -78,20 +113,20 @@ const SillyPasswordGenerator = (_a) => {
                         react_1.default.createElement(react_bootstrap_1.Card, { className: "shadow" },
                             react_1.default.createElement(react_bootstrap_1.Card.Body, null,
                                 react_1.default.createElement(react_bootstrap_1.Stack, { gap: 2 },
-                                    react_1.default.createElement("h1", { className: `position-relative d-flex flex-column text-center my-3 text-${strengthVariant}`, style: {
+                                    react_1.default.createElement("h1", { className: `position-relative d-flex flex-column text-center my-3`, style: {
                                             fontFamily: "'Underdog', sans-serif",
                                             lineHeight: '45px',
                                         } },
-                                        react_1.default.createElement("div", null, "Silly"),
-                                        react_1.default.createElement("div", { className: "position-relative", style: {
+                                        react_1.default.createElement("div", { key: `silly-heading-${sillyPassword}`, className: "shake" }, "Silly"),
+                                        react_1.default.createElement("div", { key: `password-heading-${sillyPassword}`, className: "position-relative bounce", style: {
                                                 fontFamily: "'Rye', sans-serif",
                                                 fontSize: '180%',
                                                 transform: 'rotate(-3deg)',
                                                 top: -5,
                                             } }, "Password"),
-                                        react_1.default.createElement("div", null, "Generator"),
-                                        react_1.default.createElement("div", { className: "position-absolute", style: { top: 15, left: '30%' } }, "*"),
-                                        react_1.default.createElement("div", { className: "position-absolute", style: { bottom: 10, left: '70%', transform: 'scaleX(-1)' } }, "*")),
+                                        react_1.default.createElement("div", { key: `generator-heading-${sillyPassword}`, className: "shake" }, "Generator"),
+                                        react_1.default.createElement("div", { key: `asterisk-1-heading-${sillyPassword}`, className: "position-absolute shake", style: { top: 15, left: '30%' } }, "*"),
+                                        react_1.default.createElement("div", { key: `asterisk-2-heading-${sillyPassword}`, className: "position-absolute shake", style: { bottom: 10, left: '70%', transform: 'scaleX(-1)' } }, "*")),
                                     react_1.default.createElement(react_bootstrap_1.Alert, { variant: strengthVariant },
                                         react_1.default.createElement("h5", { className: "text-center mb-0" }, "Generate silly passwords that are secure and easy to use.")),
                                     react_1.default.createElement("div", { className: "d-flex flex-column gap-2 my-4" },
@@ -133,11 +168,11 @@ const SillyPasswordGenerator = (_a) => {
                                                             setSalt(e.target.value);
                                                             setShouldGenerate(true);
                                                         } }),
-                                                    react_1.default.createElement(react_bootstrap_1.Form.Text, { className: "text-muted" }, "Everything is better with a little salt. Your generated password will end with this text."))))),
+                                                    react_1.default.createElement(react_bootstrap_1.Form.Text, { className: "text-muted" }, "Everything is better with a little salt. Your generated password will end with this text. Provide something simple that only you know about. This can also be handy for pesky password requirements that force you to include a number and a symbol."))))),
                                     react_1.default.createElement(react_bootstrap_1.Alert, { variant: strengthVariant },
                                         react_1.default.createElement("h5", { className: "mb-4" },
                                             react_1.default.createElement("div", { className: "d-flex align-items-center gap-2" },
-                                                react_1.default.createElement(react_bootstrap_1.Badge, { bg: strengthVariant, className: (0, classnames_1.default)(effectiveScore >= 2 && effectiveScore <= 3 && 'text-black') },
+                                                react_1.default.createElement(react_bootstrap_1.Badge, { bg: strengthVariant, className: (0, classnames_1.default)('shake', effectiveScore >= 2 && effectiveScore <= 3 && 'text-black'), key: `rating-badge-${sillyPassword}` },
                                                     effectiveScore,
                                                     "/4"),
                                                 "Password Strength")),
