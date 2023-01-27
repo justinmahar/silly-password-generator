@@ -42,9 +42,14 @@ const SillyPasswordGenerator = (_a) => {
     const initialPassword = react_1.default.useMemo(() => (0, passwords_1.generateSillyPassword)(options), []); // No deps; one-time only.
     const [sillyPassword, setSillyPassword] = react_1.default.useState(initialPassword);
     const [shouldGenerate, setShouldGenerate] = react_1.default.useState(false);
+    const [shouldAnimate, setShouldAnimate] = react_1.default.useState(false);
     const generate = react_1.default.useCallback(() => {
         setSillyPassword((0, passwords_1.generateSillyPassword)(options));
     }, [options]);
+    const handleGenerateButton = () => {
+        setShouldAnimate(true);
+        generate();
+    };
     const handleCopyButton = () => {
         (0, copy_to_clipboard_1.default)(sillyPassword);
         toggleShowCopied();
@@ -92,14 +97,11 @@ const SillyPasswordGenerator = (_a) => {
             0% {
               transform: rotate(0deg);
             }  
-            25% {
+            33% {
               transform: rotate(-2deg);
             } 
-            50% {
+            67% {
               transform: rotate(2deg);
-            } 
-            75% {
-              transform: rotate(-2deg);
             } 
             100% {
               transform: rotate(0deg);
@@ -117,16 +119,18 @@ const SillyPasswordGenerator = (_a) => {
                                             fontFamily: "'Underdog', sans-serif",
                                             lineHeight: '45px',
                                         } },
-                                        react_1.default.createElement("div", { key: `silly-heading-${sillyPassword}`, className: "shake" }, "Silly"),
-                                        react_1.default.createElement("div", { key: `password-heading-${sillyPassword}`, className: "position-relative bounce", style: {
+                                        react_1.default.createElement("div", { key: `silly-heading-${sillyPassword}`, className: (0, classnames_1.default)(shouldAnimate && 'shake') }, "Silly"),
+                                        react_1.default.createElement("div", { key: `password-heading-${sillyPassword}`, className: (0, classnames_1.default)(shouldAnimate && 'bounce', 'position-relative d-flex flex-wrap justify-content-center'), style: {
                                                 fontFamily: "'Rye', sans-serif",
                                                 fontSize: '180%',
                                                 transform: 'rotate(-3deg)',
                                                 top: -5,
-                                            } }, "Password"),
-                                        react_1.default.createElement("div", { key: `generator-heading-${sillyPassword}`, className: "shake" }, "Generator"),
-                                        react_1.default.createElement("div", { key: `asterisk-1-heading-${sillyPassword}`, className: "position-absolute shake", style: { top: 15, left: '30%' } }, "*"),
-                                        react_1.default.createElement("div", { key: `asterisk-2-heading-${sillyPassword}`, className: "position-absolute shake", style: { bottom: 10, left: '70%', transform: 'scaleX(-1)' } }, "*")),
+                                            } },
+                                            react_1.default.createElement("div", null, "Pass"),
+                                            react_1.default.createElement("div", null, "word")),
+                                        react_1.default.createElement("div", { key: `generator-heading-${sillyPassword}`, className: (0, classnames_1.default)(shouldAnimate && 'shake') }, "Generator"),
+                                        react_1.default.createElement("div", { key: `asterisk-1-heading-${sillyPassword}`, className: (0, classnames_1.default)(shouldAnimate && 'shake', 'position-absolute'), style: { top: 15, left: '30%' } }, "*"),
+                                        react_1.default.createElement("div", { key: `asterisk-2-heading-${sillyPassword}`, className: (0, classnames_1.default)(shouldAnimate && 'shake', 'position-absolute'), style: { bottom: 10, left: '70%', transform: 'scaleX(-1)' } }, "*")),
                                     react_1.default.createElement(react_bootstrap_1.Alert, { variant: strengthVariant },
                                         react_1.default.createElement("h5", { className: "text-center mb-0" }, "Generate silly passwords that are secure and easy to use.")),
                                     react_1.default.createElement("div", { className: "d-flex flex-column gap-2 my-4" },
@@ -134,7 +138,7 @@ const SillyPasswordGenerator = (_a) => {
                                             react_1.default.createElement(react_bootstrap_1.Form.Control, { placeholder: "Generate a silly password, silly!", value: sillyPassword, onChange: (e) => setSillyPassword(e.target.value), className: "d-none d-md-block fs-3 text-center" }),
                                             react_1.default.createElement(react_bootstrap_1.Form.Control, { as: "textarea", rows: 2, placeholder: "Generate a silly password, silly!", value: sillyPassword, onChange: (e) => setSillyPassword(e.target.value), className: "d-md-none fs-3 text-center" })),
                                         react_1.default.createElement("div", { className: "d-flex justify-content-center gap-2" },
-                                            react_1.default.createElement(react_bootstrap_1.Button, { onClick: generate }, "Generate"),
+                                            react_1.default.createElement(react_bootstrap_1.Button, { onClick: handleGenerateButton }, "Generate"),
                                             react_1.default.createElement(react_bootstrap_1.Button, { variant: "outline-primary", onClick: handleCopyButton }, showCopied ? '✅ Copied!' : 'Copy'))),
                                     react_1.default.createElement(react_bootstrap_1.Accordion, null,
                                         react_1.default.createElement(react_bootstrap_1.Accordion.Item, { eventKey: "0" },
@@ -172,7 +176,7 @@ const SillyPasswordGenerator = (_a) => {
                                     react_1.default.createElement(react_bootstrap_1.Alert, { variant: strengthVariant },
                                         react_1.default.createElement("h5", { className: "mb-4" },
                                             react_1.default.createElement("div", { className: "d-flex align-items-center gap-2" },
-                                                react_1.default.createElement(react_bootstrap_1.Badge, { bg: strengthVariant, className: (0, classnames_1.default)('shake', effectiveScore >= 2 && effectiveScore <= 3 && 'text-black'), key: `rating-badge-${sillyPassword}` },
+                                                react_1.default.createElement(react_bootstrap_1.Badge, { bg: strengthVariant, className: (0, classnames_1.default)(shouldAnimate && 'shake', effectiveScore >= 2 && effectiveScore <= 3 && 'text-black'), key: `rating-badge-${sillyPassword}` },
                                                     effectiveScore,
                                                     "/4"),
                                                 "Password Strength")),
