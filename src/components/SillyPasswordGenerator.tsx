@@ -32,10 +32,16 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
   const initialPassword = React.useMemo(() => generateSillyPassword(options), []); // No deps; one-time only.
   const [sillyPassword, setSillyPassword] = React.useState(initialPassword);
   const [shouldGenerate, setShouldGenerate] = React.useState(false);
+  const [shouldAnimate, setShouldAnimate] = React.useState(false);
 
   const generate = React.useCallback(() => {
     setSillyPassword(generateSillyPassword(options));
   }, [options]);
+
+  const handleGenerateButton = () => {
+    setShouldAnimate(true);
+    generate();
+  };
 
   const handleCopyButton = () => {
     copy(sillyPassword);
@@ -91,14 +97,11 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
             0% {
               transform: rotate(0deg);
             }  
-            25% {
+            33% {
               transform: rotate(-2deg);
             } 
-            50% {
+            67% {
               transform: rotate(2deg);
-            } 
-            75% {
-              transform: rotate(-2deg);
             } 
             100% {
               transform: rotate(0deg);
@@ -120,12 +123,15 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                         lineHeight: '45px',
                       }}
                     >
-                      <div key={`silly-heading-${sillyPassword}`} className="shake">
+                      <div key={`silly-heading-${sillyPassword}`} className={classNames(shouldAnimate && 'shake')}>
                         Silly
                       </div>
                       <div
                         key={`password-heading-${sillyPassword}`}
-                        className="position-relative bounce"
+                        className={classNames(
+                          shouldAnimate && 'bounce',
+                          'position-relative d-flex flex-wrap justify-content-center',
+                        )}
                         style={{
                           fontFamily: "'Rye', sans-serif",
                           fontSize: '180%',
@@ -133,21 +139,22 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                           top: -5,
                         }}
                       >
-                        Password
+                        <div>Pass</div>
+                        <div>word</div>
                       </div>
-                      <div key={`generator-heading-${sillyPassword}`} className="shake">
+                      <div key={`generator-heading-${sillyPassword}`} className={classNames(shouldAnimate && 'shake')}>
                         Generator
                       </div>
                       <div
                         key={`asterisk-1-heading-${sillyPassword}`}
-                        className="position-absolute shake"
+                        className={classNames(shouldAnimate && 'shake', 'position-absolute')}
                         style={{ top: 15, left: '30%' }}
                       >
                         *
                       </div>
                       <div
                         key={`asterisk-2-heading-${sillyPassword}`}
-                        className="position-absolute shake"
+                        className={classNames(shouldAnimate && 'shake', 'position-absolute')}
                         style={{ bottom: 10, left: '70%', transform: 'scaleX(-1)' }}
                       >
                         *
@@ -174,7 +181,7 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                         />
                       </div>
                       <div className="d-flex justify-content-center gap-2">
-                        <Button onClick={generate}>Generate</Button>
+                        <Button onClick={handleGenerateButton}>Generate</Button>
                         <Button variant="outline-primary" onClick={handleCopyButton}>
                           {showCopied ? '✅ Copied!' : 'Copy'}
                         </Button>
@@ -254,7 +261,10 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                         <div className="d-flex align-items-center gap-2">
                           <Badge
                             bg={strengthVariant}
-                            className={classNames('shake', effectiveScore >= 2 && effectiveScore <= 3 && 'text-black')}
+                            className={classNames(
+                              shouldAnimate && 'shake',
+                              effectiveScore >= 2 && effectiveScore <= 3 && 'text-black',
+                            )}
                             key={`rating-badge-${sillyPassword}`}
                           >
                             {effectiveScore}/4
