@@ -17,7 +17,7 @@ export const RoboQuote = ({ effectiveScore, analysis, salt }: RoboQuoteProps) =>
       scoreSentiments = 'decent';
       break;
     case 2:
-      scoreSentiments = 'lame';
+      scoreSentiments = 'insufficient';
       break;
     case 1:
       scoreSentiments = 'terrible';
@@ -29,14 +29,13 @@ export const RoboQuote = ({ effectiveScore, analysis, salt }: RoboQuoteProps) =>
   const makeRoboQuote = (roboStatementElement: JSX.Element) => <>🤖 “{roboStatementElement}”</>;
   const analysisSentiments = (
     <>
-      <span className="fw-bold">{analysis.crack_times_display.offline_fast_hashing_1e10_per_second}</span> to brute
-      force crack this <span className="fw-bold">{scoreSentiments}</span> password on an ultra fast computer, even if
-      the hacker knew about this password generator.
-      {!salt && (
+      <span className="fw-bold">{analysis.crack_times_display.offline_fast_hashing_1e10_per_second}</span> to
+      brute-force crack this <span className="fw-bold">{scoreSentiments}</span> password on an ultra fast computer
+      {effectiveScore >= 4 && <> (even if the hacker knew about this password generator)</>}.
+      {!salt && effectiveScore >= 4 && (
         <>
           {' '}
-          You can make your password even stronger by <span className="fw-bold">adding some salt</span> in Options. It
-          could be something simple that only you know about.
+          You can make your password even stronger by <span className="fw-bold">adding some salt</span> in Options.
         </>
       )}
     </>

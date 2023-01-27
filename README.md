@@ -23,7 +23,7 @@ Generate fun and silly passwords that are secure, easy to type, and easy to reme
 
 Would you rather use the password [`Tr0ub4dor&3`](https://xkcd.com/936/) or `exciting creepy macho tiger`? 
 
-The first would take 10 seconds to crack, the second would take centuries. Exciting creepy macho tigers for the win.
+Using an unrestricted brute-force attack, the first would take 3 seconds to crack, and the second would take 1 month. Exciting creepy macho tigers for the win!
 
 ### Features include:
 

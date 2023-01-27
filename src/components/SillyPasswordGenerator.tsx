@@ -69,6 +69,43 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
   return (
     <div {...props} style={{ ...props.style }}>
       <style>@import url('https://fonts.googleapis.com/css2?family=Underdog&family=Rye&display=swap');</style>
+      <style>
+        {`
+         .bounce { 
+            animation-name: bounce; 
+            animation-duration: 1s;
+         }
+         @keyframes bounce { 
+            0%, 100% {
+              transform: scale(1) rotate(-3deg);
+            } 
+            20% {
+              transform: scale(1.1) rotate(-2deg);
+            }
+         }
+         .shake { 
+            animation-name: shake; 
+            animation-duration: 0.3s;
+         }
+         @keyframes shake { 
+            0% {
+              transform: rotate(0deg);
+            }  
+            25% {
+              transform: rotate(-2deg);
+            } 
+            50% {
+              transform: rotate(2deg);
+            } 
+            75% {
+              transform: rotate(-2deg);
+            } 
+            100% {
+              transform: rotate(0deg);
+            }
+         }
+         `}
+      </style>
       <div>
         <Container>
           <Row>
@@ -77,15 +114,18 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                 <Card.Body>
                   <Stack gap={2}>
                     <h1
-                      className={`position-relative d-flex flex-column text-center my-3 text-${strengthVariant}`}
+                      className={`position-relative d-flex flex-column text-center my-3`}
                       style={{
                         fontFamily: "'Underdog', sans-serif",
                         lineHeight: '45px',
                       }}
                     >
-                      <div>Silly</div>
+                      <div key={`silly-heading-${sillyPassword}`} className="shake">
+                        Silly
+                      </div>
                       <div
-                        className="position-relative"
+                        key={`password-heading-${sillyPassword}`}
+                        className="position-relative bounce"
                         style={{
                           fontFamily: "'Rye', sans-serif",
                           fontSize: '180%',
@@ -95,11 +135,21 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                       >
                         Password
                       </div>
-                      <div>Generator</div>
-                      <div className="position-absolute" style={{ top: 15, left: '30%' }}>
+                      <div key={`generator-heading-${sillyPassword}`} className="shake">
+                        Generator
+                      </div>
+                      <div
+                        key={`asterisk-1-heading-${sillyPassword}`}
+                        className="position-absolute shake"
+                        style={{ top: 15, left: '30%' }}
+                      >
                         *
                       </div>
-                      <div className="position-absolute" style={{ bottom: 10, left: '70%', transform: 'scaleX(-1)' }}>
+                      <div
+                        key={`asterisk-2-heading-${sillyPassword}`}
+                        className="position-absolute shake"
+                        style={{ bottom: 10, left: '70%', transform: 'scaleX(-1)' }}
+                      >
                         *
                       </div>
                     </h1>
@@ -192,6 +242,8 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                             />
                             <Form.Text className="text-muted">
                               Everything is better with a little salt. Your generated password will end with this text.
+                              Provide something simple that only you know about. This can also be handy for pesky
+                              password requirements that force you to include a number and a symbol.
                             </Form.Text>
                           </Form.Group>
                         </Accordion.Body>
@@ -202,7 +254,8 @@ export const SillyPasswordGenerator = ({ ...props }: SillyPasswordGeneratorProps
                         <div className="d-flex align-items-center gap-2">
                           <Badge
                             bg={strengthVariant}
-                            className={classNames(effectiveScore >= 2 && effectiveScore <= 3 && 'text-black')}
+                            className={classNames('shake', effectiveScore >= 2 && effectiveScore <= 3 && 'text-black')}
+                            key={`rating-badge-${sillyPassword}`}
                           >
                             {effectiveScore}/4
                           </Badge>
