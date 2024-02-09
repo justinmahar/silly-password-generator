@@ -1,7 +1,7 @@
 {
   "name": "silly-password-generator",
   "version": "1.0.26",
-  "coreVersion": "3.0.7",
+  "coreVersion": "3.0.9",
   "author": "Justin Mahar <contact@justinmahar.com>",
   "description": "🔑 Generate silly passwords that are secure and easy to use. Inspired by xkcd.",
   "homepage": "https://justinmahar.github.io/silly-password-generator/",
@@ -78,7 +78,7 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-storybook": "^0.6.15",
-    "lockblocks": "^1.1.4",
+    "lockblocks": "^1.1.8",
     "prettier": "^3.2.5",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
