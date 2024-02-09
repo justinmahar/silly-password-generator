@@ -1,6 +1,6 @@
 {
   "name": "silly-password-generator",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "coreVersion": "3.0.7",
   "author": "Justin Mahar <contact@justinmahar.com>",
   "description": "🔑 Generate silly passwords that are secure and easy to use. Inspired by xkcd.",
